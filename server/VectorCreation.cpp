@@ -91,7 +91,7 @@ int insertToVector(vector<double> &vector) {
     // This is checking if the string is a number.
     while (lineStream >> s) {
         if (!numCheck(s)) {
-            return 0;
+            exit(0);
         }
         try {
             double d = stod(s);
