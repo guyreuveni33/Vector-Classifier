@@ -3,4 +3,4 @@ project(ex3_AP)
 
 set(CMAKE_CXX_STANDARD 11)
 
-add_executable(ex3_AP main.cpp)
+add_executable(ex3_AP main.cpp VectorCreation.cpp VectorCreation.h)
