@@ -5,8 +5,13 @@
 #include <arpa/inet.h>
 #include <unistd.h>
 #include <string.h>
+#include <vector>
+#include <sstream>
+#include "VectorCreation.h">
 
 using namespace std;
+
+string calculate( std::string userInput);
 
 int main(int argc, char *argv[]) {
     if (argc!=3){
@@ -38,6 +43,11 @@ int main(int argc, char *argv[]) {
         if (userInput == "-1") {
             break;
         }
+        string retStr=calculate(userInput);
+        if (retStr=="invalid input"){
+            cout<<retStr<<endl;
+            continue;
+        }
         char arrayUserInput[userInput.size() + 1];
         strncpy(arrayUserInput, userInput.c_str(), userInput.size());
         arrayUserInput[userInput.size()] = '\0';
@@ -57,10 +67,44 @@ int main(int argc, char *argv[]) {
             cout << "failed to receive data";
             break;
         } else {
-            cout << buffer;
+            cout << buffer << endl;
         }
     }
     close(sock);
     return 0;
 }
 
+string calculate(std::string userInput) {
+    // Initialize the stringstream with the buffer string
+    std::stringstream ss(userInput);
+    // Extract all the numbers until the first letter and save them in inputVector
+    std::vector<double> inputVector;
+    string s, distanceAlgo;
+    string retStr=" ";
+    int k;
+    if (userInput==" ") {
+        retStr = "invalid input";
+        return retStr;
+    }
+    while (ss >> s) {
+        if (numCheck(s) == 1) {
+            inputVector.push_back(stod(s));
+        }
+        if (!numCheck(s)) {
+            distanceAlgo = s;
+            if (distanceAlgo != "AUC" && distanceAlgo != "MAN" && distanceAlgo != "CHB" && distanceAlgo != "CAN"
+                && distanceAlgo != "MIN") {
+                retStr= "invalid input";
+                break;
+            }
+            ss >> s;
+            try {
+                k = stoi(s);
+            } catch (exception &e) {
+                retStr= "invalid input";
+            }
+            break;
+        }
+    }
+    return retStr;
+}
