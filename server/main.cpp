@@ -1,29 +1,26 @@
-#include "MasterDistance.h"
-#include "VectorCreation.h"
-#include "VectorBase.h"
-#include "CsvReading.h"
 #include <iostream>
 #include <sys/socket.h>
 #include <stdio.h>
 #include <netinet/in.h>
+#include <arpa/inet.h>
 #include <unistd.h>
 #include <string.h>
+#include <vector>
 #include <sstream>
+#include "VectorCreation.h">
 
 using namespace std;
 
-
-int calculate(char buffer[], string fileName);
-
+string calculate( std::string userInput);
 
 int main(int argc, char *argv[]) {
     if (argc!=3){
         exit(0);
     }
-    string fileName = argv[1];
-    int server_port;
+    const char *ip_address = argv[1];
+    int port_no;
     try {
-        server_port = atoi(argv[2]);
+        port_no = atoi(argv[2]);
     }
     catch (exception &e) {
         exit(0);
@@ -35,86 +32,81 @@ int main(int argc, char *argv[]) {
     struct sockaddr_in sin;
     memset(&sin, 0, sizeof(sin));
     sin.sin_family = AF_INET;
-    sin.sin_addr.s_addr = INADDR_ANY;
-    sin.sin_port = htons(server_port);
-    if (::bind(sock, (struct sockaddr *) &sin, sizeof(sin)) < 0) {
-        perror("error binding socket");
-    }
-    if (listen(sock, 5) < 0) {
-        perror("error listening to a socket");
+    sin.sin_addr.s_addr = inet_addr(ip_address);
+    sin.sin_port = htons(port_no);
+    if (connect(sock, (struct sockaddr *) &sin, sizeof(sin)) < 0) {
+        perror("error connecting to server");
     }
     while(true) {
-        struct sockaddr_in client_sin;
-        unsigned int addr_len = sizeof(client_sin);
-        int client_sock = accept(sock, (struct sockaddr *) &client_sin, &addr_len);
-        if (client_sock < 0) {
-            perror("error accepting client");
+        string userInput;
+        getline(cin, userInput);
+        if (userInput == "-1") {
+            break;
+        }
+        string retStr=calculate(userInput);
+        if (retStr=="invalid input"){
+            cout<<retStr<<endl;
+            continue;
+        }
+        char arrayUserInput[userInput.size() + 1];
+        strncpy(arrayUserInput, userInput.c_str(), userInput.size());
+        arrayUserInput[userInput.size()] = '\0';
+        int data_len = strlen(arrayUserInput);
+        int sent_bytes = send(sock, arrayUserInput, data_len, 0);
+        if (sent_bytes < 0) {
+            cout << "failed to send data";
+            break;
         }
         char buffer[4096];
         int expected_data_len = sizeof(buffer);
-        int read_bytes = recv(client_sock, buffer, expected_data_len, 0);
+        int read_bytes = recv(sock, buffer, expected_data_len, 0);
         if (read_bytes == 0) {
             cout << "connection closed";
-            close(sock);
             break;
         } else if (read_bytes < 0) {
-            cout << "failed to read data";
-            close(sock);
+            cout << "failed to receive data";
             break;
         } else {
-            std::cout << buffer;
+            cout << buffer << endl;
         }
-
-        int sent_bytes = send(client_sock, buffer, read_bytes, 0);
-        if (sent_bytes < 0) {
-            perror("error sending to client");
-            break;
-        }
-        calculate(buffer, fileName);
     }
     close(sock);
     return 0;
 }
-/*
-int calculate(char buffer[], string fileName) {
 
-    vector<VectorBase> masterVector;
-    vector<double> inputVector;
-    int k = stoi();//input the k value from the buffer here
-    //string fileName = argv[2];
-    string distanceAlgo = ; //input the distance algo from the buffer here
-    while (true) {
-        //insertToVector(inputVector);
-        csvIsValid(k, fileName, distanceAlgo, masterVector, inputVector);
-        masterVector.clear();
-        inputVector.clear();
-    }*/
-
-int calculate(char buffer[], std::string fileName) {
+string calculate(std::string userInput) {
     // Initialize the stringstream with the buffer string
-    std::stringstream ss(buffer);
-
+    std::stringstream ss(userInput);
     // Extract all the numbers until the first letter and save them in inputVector
     std::vector<double> inputVector;
-    double num;
-    while (ss >> num) {
-        inputVector.push_back(num);
-    }
-
-    // Extract the three letters, 'AUC', and save them in distanceAlgo
-    std::string distanceAlgo;
-    ss >> distanceAlgo;
-
-    // Extract the int value after the three letters, '500', and save it in k
+    string s, distanceAlgo;
+    string retStr=" ";
     int k;
-    ss >> k;
-
-    // Use the extracted values to calculate the distance
-    std::vector<VectorBase> masterVector;
-    while (true) {
-        csvIsValid(k, fileName, distanceAlgo, masterVector, inputVector);
-        masterVector.clear();
-        inputVector.clear();
+    if (userInput==" ") {
+        retStr = "invalid input";
+        return retStr;
     }
+    while (ss >> s) {
+        if (numCheck(s) == 1) {
+            inputVector.push_back(stod(s));
+        }
+        if (!numCheck(s)) {
+            distanceAlgo = s;
+            if (distanceAlgo != "AUC" && distanceAlgo != "MAN" && distanceAlgo != "CHB" && distanceAlgo != "CAN"
+                && distanceAlgo != "MIN") {
+                retStr= "invalid input";
+                break;
+            }
+            ss >> s;
+            try {
+                k = stoi(s);
+            } catch (exception &e) {
+                retStr= "invalid input";
+            }
+            break;
+        }
+    }
+    return retStr;
 }
+
 
