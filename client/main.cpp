@@ -57,7 +57,7 @@ int main(int argc, char *argv[]) {
             cout << "failed to receive data";
             break;
         } else {
-            cout << buffer;
+            cout << buffer << endl;
         }
     }
     close(sock);

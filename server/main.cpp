@@ -13,7 +13,7 @@
 using namespace std;
 
 
-int calculate(char buffer[], string fileName);
+string calculate(char buffer[], string fileName);
 
 
 int main(int argc, char *argv[]) {
@@ -62,7 +62,8 @@ int main(int argc, char *argv[]) {
             close(sock);
             break;
         } else {
-            std::cout << buffer;
+            calculate(buffer, fileName);
+
         }
 
         int sent_bytes = send(client_sock, buffer, read_bytes, 0);
@@ -70,7 +71,7 @@ int main(int argc, char *argv[]) {
             perror("error sending to client");
             break;
         }
-        calculate(buffer, fileName);
+        //calculate(buffer, fileName);
     }
     close(sock);
     return 0;
@@ -84,37 +85,38 @@ int calculate(char buffer[], string fileName) {
     //string fileName = argv[2];
     string distanceAlgo = ; //input the distance algo from the buffer here
     while (true) {
-        //insertToVector(inputVector);
+        insertToVector(inputVector);
         csvIsValid(k, fileName, distanceAlgo, masterVector, inputVector);
         masterVector.clear();
         inputVector.clear();
     }*/
 
-int calculate(char buffer[], std::string fileName) {
+string calculate(char buffer[], std::string fileName) {
     // Initialize the stringstream with the buffer string
     std::stringstream ss(buffer);
-
     // Extract all the numbers until the first letter and save them in inputVector
     std::vector<double> inputVector;
-    double num;
-    while (ss >> num) {
-        inputVector.push_back(num);
-    }
-
-    // Extract the three letters, 'AUC', and save them in distanceAlgo
-    std::string distanceAlgo;
-    ss >> distanceAlgo;
-
-    // Extract the int value after the three letters, '500', and save it in k
+    string s, distanceAlgo;
     int k;
-    ss >> k;
-
+    while (ss >> s) {
+        try {
+            inputVector.push_back(stod(s));
+        } catch (exception &e) {
+            distanceAlgo = s;
+            ss >> s;
+            try {
+                k = stoi(s);
+            } catch (exception &e) {
+                exit(0);
+            }
+        }
+    }
     // Use the extracted values to calculate the distance
     std::vector<VectorBase> masterVector;
-    while (true) {
-        csvIsValid(k, fileName, distanceAlgo, masterVector, inputVector);
-        masterVector.clear();
-        inputVector.clear();
-    }
+
+    csvIsValid(k, fileName, distanceAlgo, masterVector, inputVector);
+    masterVector.clear();
+    inputVector.clear();
+
 }
 
