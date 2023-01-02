@@ -17,7 +17,7 @@ string calculate(char buffer[], string fileName);
 
 
 int main(int argc, char *argv[]) {
-    if (argc!=3){
+    if (argc != 3) {
         exit(0);
     }
     string fileName = argv[1];
@@ -32,18 +32,18 @@ int main(int argc, char *argv[]) {
     if (sock < 0) {
         perror("error creating socket");
     }
-    while(true) {
-        struct sockaddr_in sin;
-        memset(&sin, 0, sizeof(sin));
-        sin.sin_family = AF_INET;
-        sin.sin_addr.s_addr = INADDR_ANY;
-        sin.sin_port = htons(server_port);
-        if (::bind(sock, (struct sockaddr *) &sin, sizeof(sin)) < 0) {
-            perror("error binding socket");
-        }
-        if (listen(sock, 5) < 0) {
-            perror("error listening to a socket");
-        }
+    struct sockaddr_in sin;
+    memset(&sin, 0, sizeof(sin));
+    sin.sin_family = AF_INET;
+    sin.sin_addr.s_addr = INADDR_ANY;
+    sin.sin_port = htons(server_port);
+    if (::bind(sock, (struct sockaddr *) &sin, sizeof(sin)) < 0) {
+        perror("error binding socket");
+    }
+    if (listen(sock, 1) < 0) {
+        perror("error listening to a socket");
+    }
+    while (true) {
         struct sockaddr_in client_sin;
         unsigned int addr_len = sizeof(client_sin);
         int client_sock = accept(sock, (struct sockaddr *) &client_sin, &addr_len);
@@ -57,14 +57,15 @@ int main(int argc, char *argv[]) {
             string c;
             if (read_bytes == 0) {
                 cout << "connection closed";
-                close(sock);
                 break;
             } else if (read_bytes < 0) {
                 cout << "failed to read data";
-                close(sock);
                 break;
             } else {
                 c = calculate(buffer, fileName);
+                if (c == "-1") {
+                    break;
+                }
                 memset(&buffer, 0, sizeof(buffer));
                 strncpy(buffer, c.c_str(), c.size());
                 buffer[c.size()] = '\0';
@@ -75,8 +76,8 @@ int main(int argc, char *argv[]) {
                 perror("error sending to client");
                 break;
             }
-            //calculate(buffer, fileName);
         }
+        close(client_sock);
     }
     close(sock);
     return 0;
