@@ -15,7 +15,7 @@ double distanceCalculator(string distanceAlgo, vector<double> &v1, vector<double
     /* This is checking the distance algorithm that the user has inputted. If the user has inputted a valid distance
     algorithm, the program will calculate the distance between the two vectors. If the user has inputted an invalid
     distance algorithm, the program will exit. */
-    double distance;
+    double distance = 0;
     if (distanceAlgo == "AUC") {
         Euclidean m;
         distance = m.algorithm(v1, v2);
@@ -31,15 +31,15 @@ double distanceCalculator(string distanceAlgo, vector<double> &v1, vector<double
     } else if (distanceAlgo == "MIN") {
         Minkowski m;
         distance = m.algorithm(v1, v2);
-    } else
-        exit(0);
+    }
     return distance;
 }
 
-void kCheck(int k, vector<VectorBase> &masterVector) {
+int kCheck(int k, vector<VectorBase> &masterVector) {
     if (masterVector.size() < k || k <= 0) {
-        exit(0);
+        return 0;
     }
+    return 1;
 }
 
 void sortVector(vector<VectorBase> &masterVector) {
@@ -53,7 +53,7 @@ void sortVector(vector<VectorBase> &masterVector) {
     }
 }
 
-void highestOccurrence(int k, vector<VectorBase> &masterVector) {
+string highestOccurrence(int k, vector<VectorBase> &masterVector) {
     vector<string> stringVector;
     for (int i = masterVector.size(); i > masterVector.size() - k; i--) {
         stringVector.push_back(masterVector.at(i - 1).getStr());
@@ -74,14 +74,18 @@ void highestOccurrence(int k, vector<VectorBase> &masterVector) {
             max_count = it->second;
         }
     }
-    // Print the most common string
-    cout << most_common << std::endl;
+    return most_common;
 }
 
-void csvIsValid(int k, string fileName, string distanceAlgo, vector<VectorBase> &masterVector,
-                vector<double> &inputVector) {
+string csvIsValid(int k, string fileName, string distanceAlgo, vector<VectorBase> &masterVector,
+                  vector<double> &inputVector) {
     string textLine;
     double vectorDistanceValue;
+    if (distanceAlgo != "AUC" && distanceAlgo != "MAN" && distanceAlgo != "CHB" && distanceAlgo != "CAN"
+        && distanceAlgo != "MIN") {
+        string retStr = "invalid input";
+        return retStr;
+    }
     // Opening the file and reading it.
     fstream file(fileName, ios::in);
     // This is reading the csv file and storing the data into a vector.
@@ -106,9 +110,11 @@ void csvIsValid(int k, string fileName, string distanceAlgo, vector<VectorBase> 
                 //program exits.
                 if (!numCheck(s)) {
                     if (inputVector.size() != digitVector.size()) {
-                        exit(0);
+                        string retStr = "invalid input";
+                        return retStr;
                     } else {
                         vectorDistanceValue = distanceCalculator(distanceAlgo, digitVector, inputVector);
+
                     }
                 }
             }
@@ -119,11 +125,18 @@ void csvIsValid(int k, string fileName, string distanceAlgo, vector<VectorBase> 
             // Clearing the vector.
             digitVector.clear();
         }
-        kCheck(k, masterVector);
+        int valCheck = kCheck(k, masterVector);
+        if (valCheck == 0) {
+            string retStr = "invalid input";
+            return retStr;
+        }
         sortVector(masterVector);
-        highestOccurrence(k, masterVector);
-    } else
+        string classification = highestOccurrence(k, masterVector);
+        return classification;
+    } else {
         cout << "Could not open the file\n";
+        exit(0);
+    }
 }
 
 

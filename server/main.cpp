@@ -32,64 +32,56 @@ int main(int argc, char *argv[]) {
     if (sock < 0) {
         perror("error creating socket");
     }
-    struct sockaddr_in sin;
-    memset(&sin, 0, sizeof(sin));
-    sin.sin_family = AF_INET;
-    sin.sin_addr.s_addr = INADDR_ANY;
-    sin.sin_port = htons(server_port);
-    if (::bind(sock, (struct sockaddr *) &sin, sizeof(sin)) < 0) {
-        perror("error binding socket");
-    }
-    if (listen(sock, 5) < 0) {
-        perror("error listening to a socket");
-    }
     while(true) {
+        struct sockaddr_in sin;
+        memset(&sin, 0, sizeof(sin));
+        sin.sin_family = AF_INET;
+        sin.sin_addr.s_addr = INADDR_ANY;
+        sin.sin_port = htons(server_port);
+        if (::bind(sock, (struct sockaddr *) &sin, sizeof(sin)) < 0) {
+            perror("error binding socket");
+        }
+        if (listen(sock, 5) < 0) {
+            perror("error listening to a socket");
+        }
         struct sockaddr_in client_sin;
         unsigned int addr_len = sizeof(client_sin);
         int client_sock = accept(sock, (struct sockaddr *) &client_sin, &addr_len);
         if (client_sock < 0) {
             perror("error accepting client");
         }
-        char buffer[4096];
-        int expected_data_len = sizeof(buffer);
-        int read_bytes = recv(client_sock, buffer, expected_data_len, 0);
-        if (read_bytes == 0) {
-            cout << "connection closed";
-            close(sock);
-            break;
-        } else if (read_bytes < 0) {
-            cout << "failed to read data";
-            close(sock);
-            break;
-        } else {
-            calculate(buffer, fileName);
-
+        while (true) {
+            char buffer[4096];
+            int expected_data_len = sizeof(buffer);
+            int read_bytes = recv(client_sock, buffer, expected_data_len, 0);
+            string c;
+            if (read_bytes == 0) {
+                cout << "connection closed";
+                close(sock);
+                break;
+            } else if (read_bytes < 0) {
+                cout << "failed to read data";
+                close(sock);
+                break;
+            } else {
+                c = calculate(buffer, fileName);
+                memset(&buffer, 0, sizeof(buffer));
+                strncpy(buffer, c.c_str(), c.size());
+                buffer[c.size()] = '\0';
+            }
+            read_bytes = c.length();
+            int sent_bytes = send(client_sock, buffer, read_bytes, 0);
+            if (sent_bytes < 0) {
+                perror("error sending to client");
+                break;
+            }
+            //calculate(buffer, fileName);
         }
-
-        int sent_bytes = send(client_sock, buffer, read_bytes, 0);
-        if (sent_bytes < 0) {
-            perror("error sending to client");
-            break;
-        }
-        //calculate(buffer, fileName);
     }
     close(sock);
     return 0;
 }
-/*
-int calculate(char buffer[], string fileName) {
 
-    vector<VectorBase> masterVector;
-    vector<double> inputVector;
-    int k = stoi();//input the k value from the buffer here
-    //string fileName = argv[2];
-    string distanceAlgo = ; //input the distance algo from the buffer here
-    while (true) {
-        insertToVector(inputVector);
-        csvIsValid(k, fileName, distanceAlgo, masterVector, inputVector);
-        masterVector.clear();
-        inputVector.clear();
-    }*/
 
 string calculate(char buffer[], std::string fileName) {
     // Initialize the stringstream with the buffer string
@@ -107,16 +99,17 @@ string calculate(char buffer[], std::string fileName) {
             try {
                 k = stoi(s);
             } catch (exception &e) {
-                exit(0);
+                string retStr = "invalid input";
+                return retStr;
             }
         }
     }
     // Use the extracted values to calculate the distance
     std::vector<VectorBase> masterVector;
 
-    csvIsValid(k, fileName, distanceAlgo, masterVector, inputVector);
+    string finalClass = csvIsValid(k, fileName, distanceAlgo, masterVector, inputVector);
     masterVector.clear();
     inputVector.clear();
-
+    return finalClass;
 }
 
