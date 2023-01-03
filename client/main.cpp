@@ -5,8 +5,13 @@
 #include <arpa/inet.h>
 #include <unistd.h>
 #include <string.h>
+#include <vector>
+#include <sstream>
+#include "VectorCreation.h"
 
 using namespace std;
+
+string calculate( std::string userInput);
 
 int main(int argc, char *argv[]) {
     if (argc!=3){
@@ -18,6 +23,9 @@ int main(int argc, char *argv[]) {
         port_no = atoi(argv[2]);
     }
     catch (exception &e) {
+        exit(0);
+    }
+    if (port_no < 1025 || port_no > 65536) {
         exit(0);
     }
     int sock = socket(AF_INET, SOCK_STREAM, 0);
@@ -34,10 +42,17 @@ int main(int argc, char *argv[]) {
     }
     while(true) {
         string userInput;
+        char buffer[4096];
         getline(cin, userInput);
         if (userInput == "-1") {
             break;
         }
+        string retStr=calculate(userInput);
+        if (retStr=="invalid input"){
+            cout<<retStr<<endl;
+            continue;
+        }
+        memset(&buffer, 0, sizeof(buffer));
         char arrayUserInput[userInput.size() + 1];
         strncpy(arrayUserInput, userInput.c_str(), userInput.size());
         arrayUserInput[userInput.size()] = '\0';
@@ -47,8 +62,6 @@ int main(int argc, char *argv[]) {
             cout << "failed to send data";
             break;
         }
-        char buffer[4096];
-        memset(&buffer, 0, sizeof(buffer));
         int expected_data_len = sizeof(buffer);
         int read_bytes = recv(sock, buffer, expected_data_len, 0);
         if (read_bytes == 0) {
@@ -65,3 +78,37 @@ int main(int argc, char *argv[]) {
     return 0;
 }
 
+string calculate(std::string userInput) {
+    // Initialize the stringstream with the buffer string
+    std::stringstream ss(userInput);
+    // Extract all the numbers until the first letter and save them in inputVector
+    std::vector<double> inputVector;
+    string s, distanceAlgo;
+    string retStr=" ";
+    int k;
+    if (userInput.empty()) {
+        retStr = "invalid input";
+        return retStr;
+    }
+    while (ss >> s) {
+        if (numCheck(s) == 1) {
+            inputVector.push_back(stod(s));
+        }
+        if (!numCheck(s)) {
+            distanceAlgo = s;
+            if (distanceAlgo != "AUC" && distanceAlgo != "MAN" && distanceAlgo != "CHB" && distanceAlgo != "CAN"
+                && distanceAlgo != "MIN") {
+                retStr= "invalid input";
+                break;
+            }
+            ss >> s;
+            try {
+                k = stoi(s);
+            } catch (exception &e) {
+                retStr= "invalid input";
+            }
+            break;
+        }
+    }
+    return retStr;
+}
