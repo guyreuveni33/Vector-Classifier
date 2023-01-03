@@ -12,9 +12,8 @@
 using namespace std;
 
 double distanceCalculator(string distanceAlgo, vector<double> &v1, vector<double> &v2) {
-    /* This is checking the distance algorithm that the user has inputted. If the user has inputted a valid distance
-    algorithm, the program will calculate the distance between the two vectors. If the user has inputted an invalid
-    distance algorithm, the program will exit. */
+    // This is checking the distance algorithm that the user has inputted. If the user has inputted a valid distance
+    // algorithm, the program will calculate the distance between the two vectors.
     double distance = 0;
     if (distanceAlgo == "AUC") {
         Euclidean m;
@@ -81,6 +80,8 @@ string csvIsValid(int k, string fileName, string distanceAlgo, vector<VectorBase
                   vector<double> &inputVector) {
     string textLine;
     double vectorDistanceValue;
+    // This is checking if the distance algorithm that the user has inputted is valid. If it is not, the program will
+    // exit.
     if (distanceAlgo != "AUC" && distanceAlgo != "MAN" && distanceAlgo != "CHB" && distanceAlgo != "CAN"
         && distanceAlgo != "MIN") {
         string retStr = "invalid input";
@@ -126,6 +127,7 @@ string csvIsValid(int k, string fileName, string distanceAlgo, vector<VectorBase
             digitVector.clear();
         }
         int valCheck = kCheck(k, masterVector);
+        // This is checking if the k value is valid. If it is not, the program will exit.
         if (valCheck == 0) {
             string retStr = "invalid input";
             return retStr;

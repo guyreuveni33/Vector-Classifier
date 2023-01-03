@@ -1,5 +1,5 @@
-#ifndef EX2_AP_CANBERRA_H
-#define EX2_AP_CANBERRA_H
+#ifndef EX3_AP_CANBERRA_H
+#define EX3_AP_CANBERRA_H
 #include "MasterDistance.h"
 
 //A class that inherits from the MasterDistance class.

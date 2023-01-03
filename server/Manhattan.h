@@ -1,5 +1,5 @@
-#ifndef EX2_AP_MANHATTAN_H
-#define EX2_AP_MANHATTAN_H
+#ifndef EX3_AP_MANHATTAN_H
+#define EX3_AP_MANHATTAN_H
 #include "MasterDistance.h"
 
 //A class that inherits from MasterDistance. It implements the algorithm function.

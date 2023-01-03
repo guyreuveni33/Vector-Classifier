@@ -1,5 +1,5 @@
-#ifndef EX2_AP_MASTERDISTANCE_H
-#define EX2_AP_MASTERDISTANCE_H
+#ifndef EX3_AP_MASTERDISTANCE_H
+#define EX3_AP_MASTERDISTANCE_H
 #include <cmath>
 #include <vector>
 
