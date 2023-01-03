@@ -23,7 +23,7 @@ double distanceCalculator(string distanceAlgo, vector<double> &v1, vector<double
  * @param k The number of clusters to be created.
  * @param masterVector The vector of vectors that we're going to be using to find the k-means.
  */
-void kCheck(int k, vector<VectorBase> &masterVector);
+int kCheck(int k, vector<VectorBase> &masterVector);
 
 /**
  * It sorts the vector of VectorBase objects by distance
@@ -39,7 +39,7 @@ void sortVector(vector<VectorBase> &masterVector);
  * @param k The number of elements to consider in the vector
  * @param masterVector The vector of VectorBase objects that we created in the previous step.
  */
-void highestOccurrence(int k, vector<VectorBase> &masterVector);
+string highestOccurrence(int k, vector<VectorBase> &masterVector);
 
 /**
  * This function reads each row from the file and inserts it to an object containing a vector a string and a double.
@@ -51,7 +51,7 @@ void highestOccurrence(int k, vector<VectorBase> &masterVector);
  * @param masterVector This is the vector that holds all the vectors that are read in from the csv file.
  * @param inputVector This is the vector that the user inputs.
  */
-void csvIsValid(int k,string fileName, string distanceAlgo, vector<VectorBase> &masterVector,
+string csvIsValid(int k,string fileName, string distanceAlgo, vector<VectorBase> &masterVector,
                 vector<double> &inputVector);
 
 #endif

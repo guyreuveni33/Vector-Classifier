@@ -7,7 +7,7 @@
 #include <string.h>
 #include <vector>
 #include <sstream>
-#include "VectorCreation.h">
+#include "VectorCreation.h"
 
 using namespace std;
 
@@ -25,6 +25,9 @@ int main(int argc, char *argv[]) {
     catch (exception &e) {
         exit(0);
     }
+    if (port_no < 1025 || port_no > 65536) {
+        exit(0);
+    }
     int sock = socket(AF_INET, SOCK_STREAM, 0);
     if (sock < 0) {
         perror("error creating socket");
@@ -39,6 +42,7 @@ int main(int argc, char *argv[]) {
     }
     while(true) {
         string userInput;
+        char buffer[4096];
         getline(cin, userInput);
         if (userInput == "-1") {
             break;
@@ -48,6 +52,7 @@ int main(int argc, char *argv[]) {
             cout<<retStr<<endl;
             continue;
         }
+        memset(&buffer, 0, sizeof(buffer));
         char arrayUserInput[userInput.size() + 1];
         strncpy(arrayUserInput, userInput.c_str(), userInput.size());
         arrayUserInput[userInput.size()] = '\0';
@@ -57,7 +62,6 @@ int main(int argc, char *argv[]) {
             cout << "failed to send data";
             break;
         }
-        char buffer[4096];
         int expected_data_len = sizeof(buffer);
         int read_bytes = recv(sock, buffer, expected_data_len, 0);
         if (read_bytes == 0) {
@@ -82,7 +86,7 @@ string calculate(std::string userInput) {
     string s, distanceAlgo;
     string retStr=" ";
     int k;
-    if (userInput==" ") {
+    if (userInput.empty()) {
         retStr = "invalid input";
         return retStr;
     }
