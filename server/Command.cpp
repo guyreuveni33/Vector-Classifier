@@ -1,3 +1,5 @@
+#include "Command.h"//
+
 class Command {
 public:
     Command(int value) : value_(value) {
