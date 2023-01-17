@@ -149,4 +149,3 @@ string calculate(char buffer[], std::string fileName) {
     inputVector.clear();
     return finalClass;
 }
-
