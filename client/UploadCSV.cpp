@@ -38,7 +38,7 @@ void UploadCSV::execute() {
     // Opening the file and reading it.
     fstream file2(fileNameTest, ios::in);
     // This is reading the csv file and storing the data into a vector.
-
+    //check if file 2 can be open
     if (file2.is_open()) {
         while (getline(file2, textLine)) {
             this->dio->write(textLine);
