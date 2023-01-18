@@ -31,3 +31,7 @@ double VectorBase::getDistance() {
 string VectorBase::getStr() {
     return vectorClassification;
 }
+
+int VectorBase::getDigitVectorSize() {
+    return (int)v.size();
+}

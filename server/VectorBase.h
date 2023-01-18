@@ -18,6 +18,7 @@ public:
     double getDistance();
     //This function returns the name of the flower.
     string getStr();
+    int getDigitVectorSize();
 };
 
 #endif
