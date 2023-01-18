@@ -15,9 +15,6 @@ class SetAlgo : public Command {
 public:
     void execute() override;
     SetAlgo(DefaultIO *dio);
-private:
-    int k;
-    string distanceMetric;
 };
 
 #endif //EX4_AP_SETALGO_H

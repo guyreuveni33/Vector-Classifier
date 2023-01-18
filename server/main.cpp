@@ -13,7 +13,7 @@
 #include "SocketIO.h"
 #include "Command.h"
 #include "UploadCSV.h"
-
+#include "SetAlgo.h"
 using namespace std;
 
 
@@ -74,7 +74,7 @@ int main(int argc, char *argv[]) {
             perror("error accepting client");
         }
         DefaultIO *dio = new SocketIO(client_sock);
-        Command *command = new UploadCSV(dio);
+        Command *command = new SetAlgo(dio);
         // Receiving the input from the client, calculating the result, and sending the result back to the client.
         while (true) {
             command->execute();

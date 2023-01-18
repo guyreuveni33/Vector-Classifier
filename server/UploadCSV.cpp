@@ -8,7 +8,7 @@
 
 UploadCSV::UploadCSV(DefaultIO *dio) {
     this->dio = dio;
-    this->description = "";
+    this->description = "upload an unclassified csv data file";
 }
 void UploadCSV::execute() {
     vector<VectorBase> masterVectorTrain;
