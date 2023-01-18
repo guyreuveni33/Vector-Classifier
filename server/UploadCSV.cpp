@@ -21,6 +21,9 @@ void UploadCSV::execute() {
         string s;
         vector<double> digitVector;
         while (getline(lineStream, s, ',')) {
+            char br = s.back();
+            if(br == '\r')
+                s.erase(s.end() - 1);
             // This is checking if the string is a number. If it is, it will convert it to a double and push it into
             //the vector.
             if (numCheck(s)) {
@@ -56,7 +59,10 @@ void UploadCSV::execute() {
         string s;
         vector<double> digitVector;
         //for(int i=0; i<vectorSize; i++){
-            while(getline(lineStream, s, ',')){
+        while(getline(lineStream, s, ',')){
+            char br = s.back();
+            if(br == '\r')
+                s.erase(s.end() - 1);
             // This is checking if the string is a number. If it is, it will convert it to a double and push it into
             //the vector.
             if (numCheck(s)) {
