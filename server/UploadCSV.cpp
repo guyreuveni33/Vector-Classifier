@@ -50,12 +50,13 @@ void UploadCSV::execute() {
     string testUpload = "Please upload your local test CSV file.";
     this->dio->write(testUpload);
     line = this->dio->read();
+
     while (line!="EOF") {
         istringstream lineStream(line);
         string s;
         vector<double> digitVector;
-        for(int i=0; i<vectorSize; i++){
-            getline(lineStream, s, ',');
+        //for(int i=0; i<vectorSize; i++){
+            while(getline(lineStream, s, ',')){
             // This is checking if the string is a number. If it is, it will convert it to a double and push it into
             //the vector.
             if (numCheck(s)) {
@@ -68,6 +69,12 @@ void UploadCSV::execute() {
                     break;
                 }
             }
+        }
+        if(digitVector.size()!=vectorSize)
+        {
+            string mismatch ="the size of the vectors in both files does not match";
+            this->dio->write(mismatch);
+            exit(0);
         }
         VectorBase rowVector("", digitVector, 0);
         masterVectorTest.push_back(rowVector);

@@ -6,9 +6,10 @@
 #define EX4_AP_DEFAULTIO_H
 
 #include <string>
-
 using namespace std;
-
+//#/home/oem/CLionProjects/ex4_AP/server/datasets/iris/iris_Unclassified1.csv
+//#/home/oem/CLionProjects/ex4_AP/server/datasets/iris/iris_Unclassified.csv
+//#/home/oem/CLionProjects/ex4_AP/server/datasets/iris/iris_classified.csv
 class DefaultIO {
 public:
     virtual string read() = 0;

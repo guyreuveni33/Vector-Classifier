@@ -24,7 +24,7 @@ void UploadCSV::execute() {
             this->dio->write(textLine);
         }
     } else {
-        cout << "Could not open the file\n";
+        cout << "invalid input\n";
         exit(0);
     }
     this->dio->write("EOF");
@@ -44,7 +44,7 @@ void UploadCSV::execute() {
             this->dio->write(textLine);
         }
     } else {
-        cout << "Could not open the file\n";
+        cout << "invalid input\n";
         exit(0);
     }
     this->dio->write("EOF");
