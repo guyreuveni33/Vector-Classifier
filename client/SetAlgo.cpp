@@ -35,7 +35,8 @@ void SetAlgo::execute() {
     else if(errorCheck=="3"){
     cout << "invalid value for K" << endl;
     cout << "invalid value for metric" << endl;
-}
+} else if(errorCheck=="10"){
+        cout << "to many arguments" << endl;
     }
-}
+}}
 

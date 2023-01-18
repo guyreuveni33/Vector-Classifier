@@ -41,7 +41,11 @@ void SetAlgo::execute() {
                 && newDistanceMetric != "MIN") {
                 counter+=2;
         }
-            string errorClassification= to_string(counter);
+        string validLine;
+        getline(lineStream, validLine, ' ');
+        if(!validLine.empty())
+            counter+=10;
+        string errorClassification= to_string(counter);
             this->dio->write(errorClassification);
         if (counter==0){
             this->k=stoi(newK);
