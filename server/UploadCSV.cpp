@@ -7,11 +7,15 @@
 #include "CsvReading.h"
 #include "Minkowski.h"
 
-
+UploadCSV::UploadCSV(DefaultIO *dio) {
+    this->dio = dio;
+    this->description = "";
+}
 void UploadCSV::execute() {
     vector<VectorBase> masterVectorTrain;
-    cout << "Please upload your local train CSV file."<<endl;
-    string line = this->dio.read();
+    string trainUpload = "Please upload your local train CSV file.";
+    this->dio->write(trainUpload);
+    string line = this->dio->read();
     while (line!="EOF") {
         istringstream lineStream(line);
         string s;
@@ -36,15 +40,16 @@ void UploadCSV::execute() {
         lineStream.str("");
         // Clearing the vector.
         digitVector.clear();
-        line = this->dio.read();
+        line = this->dio->read();
     }
 
-    cout << "Upload complete." << std::endl;
-
+    string complete = "Upload complete.";
+    this->dio->write(complete);
     int vectorSize = masterVectorTrain.at(0).getDigitVectorSize();
     vector<VectorBase> masterVectorTest;
-    cout << "Please upload your local test CSV file."<<endl;
-    line = this->dio.read();
+    string testUpload = "Please upload your local test CSV file.";
+    this->dio->write(testUpload);
+    line = this->dio->read();
     while (line!="EOF") {
         istringstream lineStream(line);
         string s;
@@ -70,25 +75,8 @@ void UploadCSV::execute() {
         lineStream.str("");
         // Clearing the vector.
         digitVector.clear();
-        line = this->dio.read();
+        line = this->dio->read();
     }
-
-    cout << "Upload complete." << std::endl;
-
-//        // Send fileContent to server
-//        // ...
-//
-//        // Receive server response
-//        std::string serverResponse;
-//        // ...
-//
-//        if (serverResponse == ".Upload complete") {
-//            std::cout << "Upload complete." << std::endl;
-//        } else {
-//            std::cout << "Server error: " << serverResponse << std::endl;
-//        }
-//     else {
-//        std::cout << "Invalid input" << std::endl;
-//    }
+    this->dio->write(complete);
 }
 

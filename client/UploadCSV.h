@@ -9,8 +9,8 @@
 
 class UploadCSV : public Command {
 public:
-    void execute() override;
     UploadCSV(DefaultIO *dio);
+    void execute() override;
 };
 
 #endif //EX4_AP_UPLOADCSV_H

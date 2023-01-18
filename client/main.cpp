@@ -8,6 +8,10 @@
 #include <vector>
 #include <sstream>
 #include "VectorCreation.h"
+#include "DefaultIO.h"
+#include "SocketIO.h"
+#include "Command.h"
+#include "UploadCSV.h"
 
 using namespace std;
 
@@ -28,9 +32,9 @@ bool is_valid_ipv4(const std::string& ip);
  */
 int main(int argc, char *argv[]) {
     // This is checking if the user entered the correct number of arguments.
-    if (argc!=3){
-        exit(0);
-    }
+//    if (argc!=3){
+//        exit(0);
+//    }
     const char *ip_address = argv[1];
     // This is checking if the ip address is valid.
     if (!is_valid_ipv4(ip_address))
@@ -62,48 +66,51 @@ int main(int argc, char *argv[]) {
     }
     // This is the main loop of the client. It gets the user input, validates it, sends it to the server, and then
     // receives the result from the server.
+    DefaultIO *dio = new SocketIO(sock);
+    Command *command = new UploadCSV(dio);
     while(true) {
-        string userInput;
-        char buffer[4096];
-        getline(cin, userInput);
-        if (userInput == "-1") {
-            break;
-        }
-        string retStr= clientValidation(userInput);
-        // This is checking if the user input is valid. If it is not valid, the program will print "invalid input" and
-        // will continue to the next iteration of the loop.
-        if (retStr=="invalid input"){
-            cout<<retStr<<endl;
-            continue;
-        }
-        // It sets the first sizeof(buffer) bytes of the block of memory pointed by buffer to the specified value (0 in
-        // this case).
-        memset(&buffer, 0, sizeof(buffer));
-        char arrayUserInput[userInput.size() + 1];
-        // This function copies the string pointed to by userInput.c_str() to the array pointed to by arrayUserInput.
-        strncpy(arrayUserInput, userInput.c_str(), userInput.size());
-        arrayUserInput[userInput.size()] = '\0';
-        int data_len = strlen(arrayUserInput);
-        int sent_bytes = send(sock, arrayUserInput, data_len, 0);
-        // This is checking if the data was sent successfully. If it was not sent successfully, the program will print
-        // "failed to send data" and will break out of the loop.
-        if (sent_bytes < 0) {
-            cout << "failed to send data";
-            break;
-        }
-        int expected_data_len = sizeof(buffer);
-        int read_bytes = recv(sock, buffer, expected_data_len, 0);
-        // This is checking if the connection was closed. If it was closed, the program will print "connection closed"
-        // and will break out of the loop.
-        if (read_bytes == 0) {
-            cout << "connection closed";
-            break;
-        } else if (read_bytes < 0) {
-            cout << "failed to receive data";
-            break;
-        } else {
-            cout << buffer << endl;
-        }
+        command->execute();
+//        string userInput;
+//        char buffer[4096];
+//        getline(cin, userInput);
+//        if (userInput == "-1") {
+//            break;
+//        }
+//        string retStr= clientValidation(userInput);
+//        // This is checking if the user input is valid. If it is not valid, the program will print "invalid input" and
+//        // will continue to the next iteration of the loop.
+//        if (retStr=="invalid input"){
+//            cout<<retStr<<endl;
+//            continue;
+//        }
+//        // It sets the first sizeof(buffer) bytes of the block of memory pointed by buffer to the specified value (0 in
+//        // this case).
+//        memset(&buffer, 0, sizeof(buffer));
+//        char arrayUserInput[userInput.size() + 1];
+//        // This function copies the string pointed to by userInput.c_str() to the array pointed to by arrayUserInput.
+//        strncpy(arrayUserInput, userInput.c_str(), userInput.size());
+//        arrayUserInput[userInput.size()] = '\0';
+//        int data_len = strlen(arrayUserInput);
+//        int sent_bytes = send(sock, arrayUserInput, data_len, 0);
+//        // This is checking if the data was sent successfully. If it was not sent successfully, the program will print
+//        // "failed to send data" and will break out of the loop.
+//        if (sent_bytes < 0) {
+//            cout << "failed to send data";
+//            break;
+//        }
+//        int expected_data_len = sizeof(buffer);
+//        int read_bytes = recv(sock, buffer, expected_data_len, 0);
+//        // This is checking if the connection was closed. If it was closed, the program will print "connection closed"
+//        // and will break out of the loop.
+//        if (read_bytes == 0) {
+//            cout << "connection closed";
+//            break;
+//        } else if (read_bytes < 0) {
+//            cout << "failed to receive data";
+//            break;
+//        } else {
+//            cout << buffer << endl;
+//        }
     }
     close(sock);
     return 0;

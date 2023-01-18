@@ -1,7 +1,3 @@
-//
-// Created by niv swisa on 17/01/2023.
-//
-
 #include "SocketIO.h"
 #include <iostream>
 #include <sys/socket.h>
@@ -25,8 +21,6 @@ string SocketIO::read(){
     } else if (read_bytes < 0) {
         cout << "failed to read data";
     }
-    cout << buffer << endl;
-    cout << endl;
     return buffer;
 }
 

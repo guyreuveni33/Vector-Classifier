@@ -9,6 +9,10 @@
 #include <unistd.h>
 #include <string.h>
 #include <sstream>
+#include "DefaultIO.h"
+#include "SocketIO.h"
+#include "Command.h"
+#include "UploadCSV.h"
 
 using namespace std;
 
@@ -27,13 +31,13 @@ string calculate(char buffer[], string fileName);
  */
 int main(int argc, char *argv[]) {
     // It checks if the number of arguments passed to the program is 3. If it is not, it exits the program.
-    if (argc != 3) {
-        exit(0);
-    }
-    string fileName = argv[1];
+//    if (argc != 3) {
+//        exit(0);
+//    }
+    //string fileName = argv[1];
     int server_port;
     try {
-        server_port = stoi(argv[2]);
+        server_port = stoi(argv[1]);
     }
     catch (exception &e) {
         exit(0);
@@ -69,43 +73,47 @@ int main(int argc, char *argv[]) {
         if (client_sock < 0) {
             perror("error accepting client");
         }
+        DefaultIO *dio = new SocketIO(client_sock);
+        Command *command = new UploadCSV(dio);
         // Receiving the input from the client, calculating the result, and sending the result back to the client.
         while (true) {
-            char buffer[4096];
-            int expected_data_len = sizeof(buffer);
-            // Receiving the input from the client.
-            int read_bytes = recv(client_sock, buffer, expected_data_len, 0);
-            string c;
-            if (read_bytes == 0) {
-                cout << "connection closed";
-                break;
-            } else if (read_bytes < 0) {
-                cout << "failed to read data";
-                break;
-            } else {
-                c = calculate(buffer, fileName);
-                if (c == "-1") {
-                    break;
-                }
-                // Setting the buffer to 0.
-                memset(&buffer, 0, sizeof(buffer));
-                // Copying the string c into the buffer.
-                strncpy(buffer, c.c_str(), c.size());
-                buffer[c.size()] = '\0';
-            }
-            read_bytes = c.length();
-            // It sends the result back to the client.
-            int sent_bytes = send(client_sock, buffer, read_bytes, 0);
-            // It checks if the number of bytes sent to the client is less than 0. If it is, it prints an error message.
-            if (sent_bytes < 0) {
-                perror("error sending to client");
-                break;
-            }
+            command->execute();
+//            char buffer[4096];
+//            int expected_data_len = sizeof(buffer);
+//            // Receiving the input from the client.
+//            int read_bytes = recv(client_sock, buffer, expected_data_len, 0);
+//            string c;
+//            if (read_bytes == 0) {
+//                cout << "connection closed";
+//                break;
+//            } else if (read_bytes < 0) {
+//                cout << "failed to read data";
+//                break;
+//            } else {
+//                c = calculate(buffer, fileName);
+//                if (c == "-1") {
+//                    break;
+//                }
+//                // Setting the buffer to 0.
+//                memset(&buffer, 0, sizeof(buffer));
+//                // Copying the string c into the buffer.
+//                strncpy(buffer, c.c_str(), c.size());
+//                buffer[c.size()] = '\0';
+//            }
+//            read_bytes = c.length();
+//            // It sends the result back to the client.
+//            int sent_bytes = send(client_sock, buffer, read_bytes, 0);
+//            // It checks if the number of bytes sent to the client is less than 0. If it is, it prints an error message.
+//            if (sent_bytes < 0) {
+//                perror("error sending to client");
+//                break;
+//            }
+//        }
+            //close(client_sock);
         }
-        close(client_sock);
+        close(sock);
+        return 0;
     }
-    close(sock);
-    return 0;
 }
 
 
