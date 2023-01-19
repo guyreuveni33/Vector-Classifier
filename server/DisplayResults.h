@@ -16,9 +16,12 @@ class DisplayResults : public Command {
 public:
     void execute() override;
 
-    DisplayResults(DefaultIO *dio, vector<VectorBase> &masterVectorTest);
+    DisplayResults(DefaultIO *dio, vector<VectorBase> &masterVectorTrain, vector<VectorBase> &masterVectorTest);
+    vector<VectorBase>* getMasterVectorTrain() override;
+    vector<VectorBase>* getMasterVectorTest() override;
 
 private:
+    vector<VectorBase> masterVectorTrain;
     vector<VectorBase> masterVectorTest;
 };
 

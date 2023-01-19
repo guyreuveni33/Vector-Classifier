@@ -53,7 +53,7 @@ void ClassifyData::execute() {
             string most_common = highestOccurrence(k, masterVectorTrain);
             // Set the class for the current input vector in masterVectorTest
             masterVectorTest[i].setStr(most_common);
-            cout<<most_common<<endl;
+            //cout<<most_common<<endl;
         }
         string complete = "classifying data complete";
         this->dio->write(complete);

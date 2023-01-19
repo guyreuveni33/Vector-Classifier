@@ -14,6 +14,7 @@
 #include "UploadCSV.h"
 #include "SetAlgo.h"
 #include "ClassifyData.h"
+#include "DisplayResults.h"
 
 using namespace std;
 
@@ -70,12 +71,14 @@ int main(int argc, char *argv[]) {
     // receives the result from the server.
     DefaultIO *dio = new SocketIO(sock);
     Command *command1 = new UploadCSV(dio);
-    Command *command2 = new ClassifyData(dio);
+    Command *command3 = new ClassifyData(dio);
+    Command *command4 = new DisplayResults(dio);
 
 
     while(true) {
         command1->execute();
-        command2->execute();
+        command3->execute();
+        command4->execute();
 //        string userInput;
 //        char buffer[4096];
 //        getline(cin, userInput);
