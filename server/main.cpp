@@ -14,6 +14,8 @@
 #include "Command.h"
 #include "UploadCSV.h"
 #include "SetAlgo.h"
+#include "ClassifyData.h"
+
 using namespace std;
 
 
@@ -73,11 +75,15 @@ int main(int argc, char *argv[]) {
         if (client_sock < 0) {
             perror("error accepting client");
         }
+        vector<VectorBase>v1;
+        vector<VectorBase>v2;
         DefaultIO *dio = new SocketIO(client_sock);
-        Command *command = new UploadCSV(dio);
+        Command *command1 = new UploadCSV(dio,v1,v2);
+        Command *command2 = new ClassifyData(dio,v1,v2, 5, "AUC");
         // Receiving the input from the client, calculating the result, and sending the result back to the client.
         while (true) {
-            command->execute();
+            command1->execute();
+            command2->execute();
 //            char buffer[4096];
 //            int expected_data_len = sizeof(buffer);
 //            // Receiving the input from the client.

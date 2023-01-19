@@ -4,11 +4,11 @@
 #include <sstream>
 #include <map>
 
-UploadCSV::UploadCSV(DefaultIO *dio) {
+UploadCSV::UploadCSV(DefaultIO *dio,vector<VectorBase> &masterVectorTest,vector<VectorBase> &masterVectorTrain) {
     this->dio = dio;
     this->description = "upload an unclassified csv data file";
-    //this->masterVectorTrain=vector<VectorBase>();
-    //this->masterVectorTest=vector<VectorBase>();
+    this->masterVectorTrain=vector<VectorBase>();
+    this->masterVectorTest=vector<VectorBase>();
 }
 
 vector<VectorBase>UploadCSV:: getMasterVectorTrain(){

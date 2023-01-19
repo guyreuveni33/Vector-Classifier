@@ -35,3 +35,12 @@ string VectorBase::getStr() {
 int VectorBase::getDigitVectorSize() {
     return (int)v.size();
 }
+vector<double> VectorBase::getVector(){
+    return v;
+}
+void VectorBase:: setStr(string vectorClassification ){
+    this->vectorClassification=vectorClassification;
+}
+void VectorBase::setAlgoDistance(double algoDistance){
+    this->algoDistance=algoDistance;
+}

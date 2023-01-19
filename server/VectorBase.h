@@ -18,7 +18,11 @@ public:
     double getDistance();
     //This function returns the name of the flower.
     string getStr();
+    void setStr(string vectorClassification);
+    void setAlgoDistance(double algoDistance);
     int getDigitVectorSize();
-};
+    vector<double> getVector();
+
+    };
 
 #endif

@@ -13,6 +13,8 @@
 #include "Command.h"
 #include "UploadCSV.h"
 #include "SetAlgo.h"
+#include "ClassifyData.h"
+
 using namespace std;
 
 string clientValidation(std::string userInput);
@@ -67,10 +69,13 @@ int main(int argc, char *argv[]) {
     // This is the main loop of the client. It gets the user input, validates it, sends it to the server, and then
     // receives the result from the server.
     DefaultIO *dio = new SocketIO(sock);
-    Command *command = new UploadCSV(dio);
+    Command *command1 = new UploadCSV(dio);
+    Command *command2 = new ClassifyData(dio);
+
 
     while(true) {
-        command->execute();
+        command1->execute();
+        command2->execute();
 //        string userInput;
 //        char buffer[4096];
 //        getline(cin, userInput);

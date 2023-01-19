@@ -17,6 +17,12 @@ SetAlgo::SetAlgo(DefaultIO *dio) {
     this->k=5;
     this->distanceMetric="AUC";
 }
+string SetAlgo::getDistanceMetric() {
+    return this->distanceMetric;
+}
+int SetAlgo::getK() {
+    return this->k;
+}
 void SetAlgo::execute() {
     string currentParameters="The current KNN parameters are: K = "+ to_string(this->k)+
         ", distance metric = "+ this->distanceMetric;

@@ -63,7 +63,7 @@ string highestOccurrence(int k, vector<VectorBase> &masterVector) {
     for (const std::string &str: stringVector) {
         counts[str]++;
     }
-    // Find the string with the highest count
+    //Find the string with the highest count
     std::string most_common;
     int max_count = 0;
     map<string, int>::iterator it;

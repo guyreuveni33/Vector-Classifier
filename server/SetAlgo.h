@@ -15,6 +15,8 @@ class SetAlgo : public Command {
 public:
     void execute() override;
     SetAlgo(DefaultIO *dio);
+    int getK();
+    string getDistanceMetric();
 private:
     int k;
     string distanceMetric;
