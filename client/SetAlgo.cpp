@@ -28,15 +28,16 @@ void SetAlgo::execute() {
     }
     if (!newParameters.empty()){
         string errorCheck = this->dio->read();
-    if (errorCheck=="1")
-    cout << "invalid value for K" << endl;
-    else if (errorCheck=="2")
-    cout << "invalid value for metric" << endl;
-    else if(errorCheck=="3"){
-    cout << "invalid value for K" << endl;
-    cout << "invalid value for metric" << endl;
-} else if(errorCheck=="10"){
-        cout << "to many arguments" << endl;
+        int intErrorCheck= stoi(errorCheck);
+        if (intErrorCheck==1)
+            cout << "invalid value for K" << endl;
+        else if (intErrorCheck==2)
+            cout << "invalid value for metric" << endl;
+        else if(intErrorCheck==3){
+            cout << "invalid value for K" << endl;
+            cout << "invalid value for metric" << endl;
+}       else if(intErrorCheck>=10){
+            cout << "to many arguments" << endl;
     }
 }}
 

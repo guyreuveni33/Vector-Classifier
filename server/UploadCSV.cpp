@@ -3,15 +3,22 @@
 #include <string>
 #include <sstream>
 #include <map>
-#include "CsvReading.h"
-#include "Minkowski.h"
 
 UploadCSV::UploadCSV(DefaultIO *dio) {
     this->dio = dio;
     this->description = "upload an unclassified csv data file";
+    //this->masterVectorTrain=vector<VectorBase>();
+    //this->masterVectorTest=vector<VectorBase>();
+}
+
+vector<VectorBase>UploadCSV:: getMasterVectorTrain(){
+    return this->masterVectorTrain;
+}
+vector<VectorBase>UploadCSV:: getMasterVectorTest(){
+    return this->masterVectorTest;
 }
 void UploadCSV::execute() {
-    vector<VectorBase> masterVectorTrain;
+    //vector<VectorBase> masterVectorTrain;
     string trainUpload = "Please upload your local train CSV file.";
     this->dio->write(trainUpload);
     string line = this->dio->read();
@@ -37,7 +44,7 @@ void UploadCSV::execute() {
             }
         }
         VectorBase rowVector(s, digitVector, 0);
-        masterVectorTrain.push_back(rowVector);
+        this->masterVectorTrain.push_back(rowVector);
         // Clearing the string stream.
         lineStream.str("");
         // Clearing the vector.
@@ -47,8 +54,7 @@ void UploadCSV::execute() {
 
     string complete = "Upload complete.";
     this->dio->write(complete);
-    int vectorSize = masterVectorTrain.at(0).getDigitVectorSize();
-    vector<VectorBase> masterVectorTest;
+    int vectorSize = this->masterVectorTrain.at(0).getDigitVectorSize();
     string testUpload = "Please upload your local test CSV file.";
     this->dio->write(testUpload);
     line = this->dio->read();
@@ -82,7 +88,7 @@ void UploadCSV::execute() {
             exit(0);
         }
         VectorBase rowVector("", digitVector, 0);
-        masterVectorTest.push_back(rowVector);
+        this->masterVectorTest.push_back(rowVector);
         // Clearing the string stream.
         lineStream.str("");
         // Clearing the vector.
@@ -91,4 +97,3 @@ void UploadCSV::execute() {
     }
     this->dio->write(complete);
 }
-

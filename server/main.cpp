@@ -74,7 +74,7 @@ int main(int argc, char *argv[]) {
             perror("error accepting client");
         }
         DefaultIO *dio = new SocketIO(client_sock);
-        Command *command = new SetAlgo(dio);
+        Command *command = new UploadCSV(dio);
         // Receiving the input from the client, calculating the result, and sending the result back to the client.
         while (true) {
             command->execute();

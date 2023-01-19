@@ -67,7 +67,7 @@ int main(int argc, char *argv[]) {
     // This is the main loop of the client. It gets the user input, validates it, sends it to the server, and then
     // receives the result from the server.
     DefaultIO *dio = new SocketIO(sock);
-    Command *command = new SetAlgo(dio);
+    Command *command = new UploadCSV(dio);
 
     while(true) {
         command->execute();
@@ -153,7 +153,7 @@ string clientValidation(std::string userInput) {
         }
         if (!numCheck(s)) {
             distanceAlgo = s;
-            // This is checking if the distance algorithm is valid. If it is not valid, the program will print "invalid
+            // This is checking if the distance algorithm is valid. If it is not valid, the program will print invalid
             // input and will continue to the next iteration of the loop.
             if (distanceAlgo != "AUC" && distanceAlgo != "MAN" && distanceAlgo != "CHB" && distanceAlgo != "CAN"
                 && distanceAlgo != "MIN") {
