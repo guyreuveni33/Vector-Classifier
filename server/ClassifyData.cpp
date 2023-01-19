@@ -12,48 +12,50 @@
 #include "Minkowski.h"
 #include "ClassifyData.h"
 
-ClassifyData::ClassifyData(DefaultIO *dio,vector<VectorBase> &masterVectorTest,vector<VectorBase> &masterVectorTrain,
-                           int k,string distanceMetric) {
+ClassifyData::ClassifyData(DefaultIO *dio, vector<VectorBase> &masterVectorTrain, vector<VectorBase> &masterVectorTest,
+                           int k, string distanceMetric) {
     this->dio = dio;
     this->description = "upload an unclassified csv data file";
-    this->masterVectorTrain= masterVectorTrain;
-    this->masterVectorTest= masterVectorTest;
-    this->k=k;
-    this->distanceMetric=distanceMetric;
+    this->masterVectorTrain = masterVectorTrain;
+    this->masterVectorTest = masterVectorTest;
+    this->k = k;
+    this->distanceMetric = distanceMetric;
 
 }
 
-vector<VectorBase>ClassifyData:: getMasterVectorTrain(){
-    return this->masterVectorTrain;
+vector<VectorBase>* ClassifyData::getMasterVectorTrain() {
+    return &this->masterVectorTrain;
 }
-vector<VectorBase>ClassifyData:: getMasterVectorTest(){
-    return this->masterVectorTest;
+
+vector<VectorBase>* ClassifyData::getMasterVectorTest() {
+    return &this->masterVectorTest;
 }
+
 void ClassifyData::execute() {
-    if(this->masterVectorTrain.empty()||this->masterVectorTest.empty())
-    {
-        string emptyMessage="please upload data";
+    if (this->masterVectorTrain.empty() || this->masterVectorTest.empty()) {
+        string emptyMessage = "please upload data";
         this->dio->write(emptyMessage);
-    }
-    else{
-    // Iterate over all input vectors in masterVectorTest
-    int i,j;
-    for (i = 0; i < masterVectorTest.size(); i++) {
-        vector<double> inputVector = masterVectorTest[i].getVector();
-        // Iterate over all vectors in masterVectorTrain
-        for (j = 0; j < masterVectorTrain.size(); j++) {
-            vector<double> trainVector = masterVectorTrain[j].getVector();
-            double distance = distanceCalculator(this->distanceMetric, inputVector, trainVector);
-            // Set distance for the current train vector in masterVectorTrain
-            masterVectorTrain[j].setAlgoDistance(distance);
+    } else {
+        // Iterate over all input vectors in masterVectorTest
+        int i, j;
+        for (i = 0; i < masterVectorTest.size(); i++) {
+            vector<double> inputVector = masterVectorTest[i].getVector();
+            // Iterate over all vectors in masterVectorTrain
+            for (j = 0; j < masterVectorTrain.size(); j++) {
+                vector<double> trainVector = masterVectorTrain[j].getVector();
+                double distance = distanceCalculator(this->distanceMetric, inputVector, trainVector);
+                // Set distance for the current train vector in masterVectorTrain
+                masterVectorTrain[j].setAlgoDistance(distance);
+            }
+            // Sort masterVectorTrain by distance
+            sortVector(masterVectorTrain);
+            // Find the most common class among the k closest vectors
+            string most_common = highestOccurrence(k, masterVectorTrain);
+            // Set the class for the current input vector in masterVectorTest
+            masterVectorTest[i].setStr(most_common);
+            cout<<most_common<<endl;
         }
-        // Sort masterVectorTrain by distance
-        sortVector(masterVectorTrain);
-        // Find the most common class among the k closest vectors
-        string most_common = highestOccurrence(k, masterVectorTrain);
-        // Set the class for the current input vector in masterVectorTest
-        masterVectorTest[i].setStr(most_common);
+        string complete = "classifying data complete";
+        this->dio->write(complete);
     }
-    string complete="classifying data complete";
-    this->dio->write(complete);
-}}
+}

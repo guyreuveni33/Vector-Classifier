@@ -12,10 +12,10 @@
 class ClassifyData : public Command {
 public:
     void execute() override;
-    ClassifyData(DefaultIO *dio,vector<VectorBase> &masterVectorTest,vector<VectorBase> &masterVectorTrain,
+    ClassifyData(DefaultIO *dio,vector<VectorBase> &masterVectorTrain,vector<VectorBase> &masterVectorTest,
                  int k,string distanceMetric);
-    vector<VectorBase> getMasterVectorTrain();
-    vector<VectorBase> getMasterVectorTest();
+    vector<VectorBase> *getMasterVectorTrain();
+    vector<VectorBase> *getMasterVectorTest();
 private:
     vector<VectorBase> masterVectorTrain;
     vector<VectorBase> masterVectorTest;

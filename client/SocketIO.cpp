@@ -9,13 +9,13 @@
 
 using namespace std;
 
-string SocketIO::read(){
+string SocketIO::read() {
     char buffer[4096];
     int expected_data_len = sizeof(buffer);
     // Receiving the input from the client.
     memset(&buffer, 0, sizeof(buffer));
     int read_bytes = recv(this->socket, buffer, expected_data_len, 0);
-    send(this->socket, buffer,1, 0);
+    send(this->socket, buffer, 1, 0);
     if (read_bytes == 0) {
         cout << "connection closed";
     } else if (read_bytes < 0) {
@@ -24,7 +24,7 @@ string SocketIO::read(){
     return buffer;
 }
 
-void SocketIO::write(string s){
+void SocketIO::write(string s) {
     char buffer[2];
     // Receiving the input from the client.
     int sent_bytes = send(this->socket, s.c_str(), s.size(), 0);
