@@ -80,18 +80,20 @@ int main(int argc, char *argv[]) {
         vector<VectorBase>v1;
         vector<VectorBase>v2;
         DefaultIO *dio = new SocketIO(client_sock);
-        Command *command1 = new UploadCSV(dio,v1,v2);
+        Command *command = new SetAlgo(dio, v1, v2);
+        //Command *command1 = new UploadCSV(dio,v1,v2);
         // Receiving the input from the client, calculating the result, and sending the result back to the client.
         while (true) {
-            command1->execute();
-            v1 = *command1->getMasterVectorTrain();
-            v2 = *command1->getMasterVectorTest();
-            Command *command3 = new ClassifyData(dio,v1,v2, 5, "AUC");
-            command3->execute();
-            v1 = *command3->getMasterVectorTrain();
-            v2 = *command3->getMasterVectorTest();
-            Command *command4 = new DisplayResults(dio,v1, v2);
-            command4->execute();
+              command->execute();
+//            command1->execute();
+//            v1 = *command1->getMasterVectorTrain();
+//            v2 = *command1->getMasterVectorTest();
+//            Command *command3 = new ClassifyData(dio,v1,v2, 5, "AUC");
+//            command3->execute();
+//            v1 = *command3->getMasterVectorTrain();
+//            v2 = *command3->getMasterVectorTest();
+//            Command *command4 = new DisplayResults(dio,v1, v2);
+//            command4->execute();
 //            char buffer[4096];
 //            int expected_data_len = sizeof(buffer);
 //            // Receiving the input from the client.

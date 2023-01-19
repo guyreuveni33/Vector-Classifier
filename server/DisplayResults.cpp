@@ -46,6 +46,6 @@ void DisplayResults::execute() {
         }
         string done = "Done.";
         this->dio->write(done);
-//        this->dio->read();
+        this->dio->read();
     }
 }

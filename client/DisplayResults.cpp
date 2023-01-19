@@ -14,25 +14,27 @@ void DisplayResults::execute() {
     string feedback = this->dio->read();
     if (feedback == "please upload data" || feedback == "please classify the data") {
         cout << feedback << endl;
-    }
-    else {
+    } else {
         int loopSize = stoi(feedback);
         int i;
         string theResults;
         for (i = 0; i < loopSize; i++) {
             theResults = this->dio->read();
-            cout<<theResults<<endl;
+            cout << theResults << endl;
         }
         string done = this->dio->read();
-        cout<<done<<endl;
-//        string finish;
-//        getline(cin, finish);
-//        if(finish.empty()) {
-//            string stillDone = "still done";
-//            this->dio->write(stillDone);
+        cout << done << endl;
+        string newParameters;
+        cin>>newParameters;
+        if (newParameters.empty()){
+            string emptyInput="-1";
+            this->dio->write(emptyInput);
+        }
+        // Do something with the input
+
 //        }
-//        else {
-//            this->dio->write(finish);
-//        }
+        //char a;
+        // int counter;
+        //cout<<"Type:"<<endl;
     }
 }

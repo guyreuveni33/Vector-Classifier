@@ -70,15 +70,17 @@ int main(int argc, char *argv[]) {
     // This is the main loop of the client. It gets the user input, validates it, sends it to the server, and then
     // receives the result from the server.
     DefaultIO *dio = new SocketIO(sock);
-    Command *command1 = new UploadCSV(dio);
-    Command *command3 = new ClassifyData(dio);
-    Command *command4 = new DisplayResults(dio);
+//    Command *command1 = new UploadCSV(dio);
+//    Command *command3 = new ClassifyData(dio);
+//    Command *command4 = new DisplayResults(dio);
+    Command *command = new SetAlgo(dio);
 
 
     while(true) {
-        command1->execute();
-        command3->execute();
-        command4->execute();
+        command->execute();
+//        command1->execute();
+//        command3->execute();
+//        command4->execute();
 //        string userInput;
 //        char buffer[4096];
 //        getline(cin, userInput);

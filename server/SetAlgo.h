@@ -14,12 +14,16 @@
 class SetAlgo : public Command {
 public:
     void execute() override;
-    SetAlgo(DefaultIO *dio);
+    SetAlgo(DefaultIO *dio, vector<VectorBase> &masterVectorTrain, vector<VectorBase> &masterVectorTest);
     int getK();
     string getDistanceMetric();
+    vector<VectorBase>* getMasterVectorTrain() override;
+    vector<VectorBase>* getMasterVectorTest() override;
 private:
     int k;
     string distanceMetric;
+    vector<VectorBase> masterVectorTrain;
+    vector<VectorBase> masterVectorTest;
 };
 
 #endif //EX4_AP_SETALGO_H
