@@ -15,7 +15,7 @@
 ClassifyData::ClassifyData(DefaultIO *dio, vector<VectorBase> &masterVectorTrain, vector<VectorBase> &masterVectorTest,
                            int k, string distanceMetric) {
     this->dio = dio;
-    this->description = "upload an unclassified csv data file";
+    this->description = "classify data";
     this->masterVectorTrain = masterVectorTrain;
     this->masterVectorTest = masterVectorTest;
     this->k = k;
