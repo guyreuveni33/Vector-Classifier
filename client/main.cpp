@@ -15,6 +15,8 @@
 #include "SetAlgo.h"
 #include "ClassifyData.h"
 #include "DisplayResults.h"
+#include "DownloadResults.h"
+#include "CLI.h"
 
 using namespace std;
 
@@ -70,14 +72,11 @@ int main(int argc, char *argv[]) {
     // This is the main loop of the client. It gets the user input, validates it, sends it to the server, and then
     // receives the result from the server.
     DefaultIO *dio = new SocketIO(sock);
-//    Command *command1 = new UploadCSV(dio);
-//    Command *command3 = new ClassifyData(dio);
-//    Command *command4 = new DisplayResults(dio);
-    Command *command = new SetAlgo(dio);
+    CLI *cli=new CLI(dio);
+    cli->start();
 
 
-    while(true) {
-        command->execute();
+
 //        command1->execute();
 //        command3->execute();
 //        command4->execute();
@@ -122,7 +121,7 @@ int main(int argc, char *argv[]) {
 //        } else {
 //            cout << buffer << endl;
 //        }
-    }
+
     close(sock);
     return 0;
 }

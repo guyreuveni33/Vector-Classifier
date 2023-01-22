@@ -11,13 +11,13 @@
 #include "CsvReading.h"
 #include "Minkowski.h"
 
-SetAlgo::SetAlgo(DefaultIO *dio, vector<VectorBase> &masterVectorTrain, vector<VectorBase> &masterVectorTest) {
+SetAlgo::SetAlgo(DefaultIO *dio, vector<VectorBase> *masterVectorTrain, vector<VectorBase> *masterVectorTest) {
     this->dio = dio;
     this->description = "algorithm settings";
     this->k=5;
     this->distanceMetric="AUC";
-    this->masterVectorTest = masterVectorTest;
-    this->masterVectorTrain = masterVectorTrain;
+    this->masterVectorTest = *masterVectorTest;
+    this->masterVectorTrain = *masterVectorTrain;
 }
 vector<VectorBase>* SetAlgo::getMasterVectorTrain() {
     return &masterVectorTrain;

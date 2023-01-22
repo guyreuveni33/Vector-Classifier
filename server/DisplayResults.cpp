@@ -4,25 +4,24 @@
 
 #include "DisplayResults.h"
 #include "SetAlgo.h"
-#include "UploadCSV.h"
-#include <iostream>
 #include <string>
-#include <sstream>
-#include <map>
 #include "CsvReading.h"
 #include "Minkowski.h"
 #include "ClassifyData.h"
 
 
-DisplayResults::DisplayResults(DefaultIO *dio, vector<VectorBase> &masterVectorTrain, vector<VectorBase> &masterVectorTest) {
+
+DisplayResults::DisplayResults(DefaultIO *dio, vector<VectorBase> *masterVectorTrain, vector<VectorBase> *masterVectorTest) {
     this->dio = dio;
     this->description = "display results";
-    this->masterVectorTest = masterVectorTest;
-    this->masterVectorTrain = masterVectorTrain;
+    this->masterVectorTest = *masterVectorTest;
+    this->masterVectorTrain = *masterVectorTrain;
 }
+
 vector<VectorBase>* DisplayResults::getMasterVectorTrain() {
     return &masterVectorTrain;
 }
+
 
 vector<VectorBase>* DisplayResults::getMasterVectorTest() {
     return &masterVectorTest;

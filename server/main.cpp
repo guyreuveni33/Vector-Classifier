@@ -1,3 +1,4 @@
+
 #include "MasterDistance.h"
 #include "VectorCreation.h"
 #include "VectorBase.h"
@@ -14,8 +15,9 @@
 #include "Command.h"
 #include "UploadCSV.h"
 #include "SetAlgo.h"
-#include "ClassifyData.h"
 #include "DisplayResults.h"
+#include "DownloadResults.h"
+#include "CLI.h"
 
 
 using namespace std;
@@ -77,23 +79,28 @@ int main(int argc, char *argv[]) {
         if (client_sock < 0) {
             perror("error accepting client");
         }
-        vector<VectorBase>v1;
-        vector<VectorBase>v2;
         DefaultIO *dio = new SocketIO(client_sock);
-        Command *command = new SetAlgo(dio, v1, v2);
-        //Command *command1 = new UploadCSV(dio,v1,v2);
+//        Command *uploadCSV = new UploadCSV(dio,v1,v2);
+//        Command *setAlgo = new SetAlgo(dio,v1,v2);
+//        Command *classifyData;
+//        Command *displayResults
+//        Command *downloadResults = new DownloadResults(dio,v1,v2);
         // Receiving the input from the client, calculating the result, and sending the result back to the client.
-        while (true) {
-              command->execute();
-//            command1->execute();
-//            v1 = *command1->getMasterVectorTrain();
-//            v2 = *command1->getMasterVectorTest();
-//            Command *command3 = new ClassifyData(dio,v1,v2, 5, "AUC");
-//            command3->execute();
-//            v1 = *command3->getMasterVectorTrain();
-//            v2 = *command3->getMasterVectorTest();
-//            Command *command4 = new DisplayResults(dio,v1, v2);
-//            command4->execute();
+
+        CLI *cli=new CLI(dio);
+        cli->start();
+       // while (true) {
+//            uploadCSV->execute();
+//            v1 = *uploadCSV->getMasterVectorTrain();
+//            v2 = *uploadCSV->getMasterVectorTest();
+//            setAlgo->execute();
+//            classifyData = new ClassifyData(dio,v1,v2,((SetAlgo*)(setAlgo))->getK(),
+//                                                     ((SetAlgo*)(setAlgo))->getDistanceMetric());
+//            classifyData->execute();
+//            v1 = *classifyData->getMasterVectorTrain();
+//            v2 = *classifyData->getMasterVectorTest();
+//            displayResults= new DisplayResults(dio,v1,v2);
+//            *ommand4->execute();
 //            char buffer[4096];
 //            int expected_data_len = sizeof(buffer);
 //            // Receiving the input from the client.
@@ -129,7 +136,7 @@ int main(int argc, char *argv[]) {
         }
         close(sock);
         return 0;
-    }
+   // }
 }
 
 
@@ -173,3 +180,4 @@ string calculate(char buffer[], std::string fileName) {
     inputVector.clear();
     return finalClass;
 }
+

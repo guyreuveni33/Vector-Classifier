@@ -14,7 +14,7 @@
 class SetAlgo : public Command {
 public:
     void execute() override;
-    SetAlgo(DefaultIO *dio, vector<VectorBase> &masterVectorTrain, vector<VectorBase> &masterVectorTest);
+    SetAlgo(DefaultIO *dio, vector<VectorBase> *masterVectorTrain, vector<VectorBase> *masterVectorTest);
     int getK();
     string getDistanceMetric();
     vector<VectorBase>* getMasterVectorTrain() override;

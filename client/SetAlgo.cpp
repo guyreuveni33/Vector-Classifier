@@ -8,6 +8,7 @@
 #include <string>
 #include <sstream>
 #include <map>
+#include <limits>
 
 SetAlgo::SetAlgo(DefaultIO *dio) {
     this->dio = dio;
@@ -18,7 +19,9 @@ void SetAlgo::execute() {
     currentKNN=this->dio->read();
     cout<<currentKNN<<endl;
     string newParameters;
+    cin.ignore();
     getline(cin,newParameters);
+    //cin.ignore(numeric_limits<std::streamsize>::max(), '\n');
     if (newParameters.empty()){
         string emptyInput="-1";
         this->dio->write(emptyInput);

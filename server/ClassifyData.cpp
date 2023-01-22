@@ -12,12 +12,12 @@
 #include "Minkowski.h"
 #include "ClassifyData.h"
 
-ClassifyData::ClassifyData(DefaultIO *dio, vector<VectorBase> &masterVectorTrain, vector<VectorBase> &masterVectorTest,
+ClassifyData::ClassifyData(DefaultIO *dio, vector<VectorBase> *masterVectorTrain, vector<VectorBase> *masterVectorTest,
                            int k, string distanceMetric) {
     this->dio = dio;
     this->description = "classify data";
-    this->masterVectorTrain = masterVectorTrain;
-    this->masterVectorTest = masterVectorTest;
+    this->masterVectorTrain = *masterVectorTrain;
+    this->masterVectorTest = *masterVectorTest;
     this->k = k;
     this->distanceMetric = distanceMetric;
 
