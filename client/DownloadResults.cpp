@@ -18,12 +18,17 @@ void DownloadResults::execute() {
         int loopSize = stoi(feedback);
         int i;
         string theResults;
+        cout << "Please enter the file path where you want to write the results (include .csv extension):" << endl;
+        string filePath;
+        cin >> filePath;
+        ofstream outputFile(filePath);
         for (i = 0; i < loopSize; i++) {
             theResults = this->dio->read();
-            cout << theResults << endl;
+            outputFile << theResults << endl;
         }
         string done = this->dio->read();
         cout << done << endl;
+        outputFile.close();
         string newParameters;
         cin>>newParameters;
         if (newParameters.empty()){
@@ -32,3 +37,4 @@ void DownloadResults::execute() {
         }
     }
 }
+
