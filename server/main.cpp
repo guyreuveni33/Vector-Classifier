@@ -1,5 +1,4 @@
 
-#include "MasterDistance.h"
 #include "VectorCreation.h"
 #include "VectorBase.h"
 #include "CsvReading.h"
@@ -13,10 +12,8 @@
 #include "DefaultIO.h"
 #include "SocketIO.h"
 #include "Command.h"
-#include "UploadCSV.h"
-#include "SetAlgo.h"
-#include "DisplayResults.h"
-#include "DownloadResults.h"
+#include <vector>
+#include <thread>
 #include "CLI.h"
 
 
@@ -24,6 +21,7 @@ using namespace std;
 
 
 string calculate(char buffer[], string fileName);
+void newClient(CLI *cli);
 
 
 /**
@@ -36,11 +34,6 @@ string calculate(char buffer[], string fileName);
  * @return the value of the expression.
  */
 int main(int argc, char *argv[]) {
-    // It checks if the number of arguments passed to the program is 3. If it is not, it exits the program.
-//    if (argc != 3) {
-//        exit(0);
-//    }
-    //string fileName = argv[1];
     int server_port;
     try {
         server_port = stoi(argv[1]);
@@ -70,6 +63,7 @@ int main(int argc, char *argv[]) {
     if (listen(sock, 1) < 0) {
         perror("error listening to a socket");
     }
+    vector<thread> clientThreads;
     // Creating a socket, binding it to a port, listening to it, accepting a client, receiving a message from the
     // client calculating the result, sending the result back to the client, and closing the connection.
     while (true) {
@@ -80,66 +74,17 @@ int main(int argc, char *argv[]) {
             perror("error accepting client");
         }
         DefaultIO *dio = new SocketIO(client_sock);
-//        Command *uploadCSV = new UploadCSV(dio,v1,v2);
-//        Command *setAlgo = new SetAlgo(dio,v1,v2);
-//        Command *classifyData;
-//        Command *displayResults
-//        Command *downloadResults = new DownloadResults(dio,v1,v2);
-        // Receiving the input from the client, calculating the result, and sending the result back to the client.
-
-        CLI *cli=new CLI(dio);
-        cli->start();
-       // while (true) {
-//            uploadCSV->execute();
-//            v1 = *uploadCSV->getMasterVectorTrain();
-//            v2 = *uploadCSV->getMasterVectorTest();
-//            setAlgo->execute();
-//            classifyData = new ClassifyData(dio,v1,v2,((SetAlgo*)(setAlgo))->getK(),
-//                                                     ((SetAlgo*)(setAlgo))->getDistanceMetric());
-//            classifyData->execute();
-//            v1 = *classifyData->getMasterVectorTrain();
-//            v2 = *classifyData->getMasterVectorTest();
-//            displayResults= new DisplayResults(dio,v1,v2);
-//            *ommand4->execute();
-//            char buffer[4096];
-//            int expected_data_len = sizeof(buffer);
-//            // Receiving the input from the client.
-//            int read_bytes = recv(client_sock, buffer, expected_data_len, 0);
-//            string c;
-//            if (read_bytes == 0) {
-//                cout << "connection closed";
-//                break;
-//            } else if (read_bytes < 0) {
-//                cout << "failed to read data";
-//                break;
-//            } else {
-//                c = calculate(buffer, fileName);
-//                if (c == "-1") {
-//                    break;
-//                }
-//                // Setting the buffer to 0.
-//                memset(&buffer, 0, sizeof(buffer));
-//                // Copying the string c into the buffer.
-//                strncpy(buffer, c.c_str(), c.size());
-//                buffer[c.size()] = '\0';
-//            }
-//            read_bytes = c.length();
-//            // It sends the result back to the client.
-//            int sent_bytes = send(client_sock, buffer, read_bytes, 0);
-//            // It checks if the number of bytes sent to the client is less than 0. If it is, it prints an error message.
-//            if (sent_bytes < 0) {
-//                perror("error sending to client");
-//                break;
-//            }
-//        }
-            //close(client_sock);
-        }
-        close(sock);
-        return 0;
-   // }
+        CLI *cli = new CLI(dio);
+        clientThreads.push_back(thread(newClient, cli));
+        clientThreads.at(clientThreads.size()-1).detach();
+    }
+    close(sock);
+    return 0;
 }
 
-
+void newClient(CLI *cli) {
+    cli->start();
+}
 /**
  * It takes in a string, extracts the numbers,distance algorithm and K from it, and then uses those values to calculate
  * the distance

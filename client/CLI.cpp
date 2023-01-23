@@ -29,38 +29,50 @@ void CLI::start() {
     Command *classifyData = new ClassifyData(this->dio);
     Command *displayResults = new DisplayResults(this->dio);
     Command *downloadResults = new DownloadResults(this->dio);
-    int option;
+    string option;
+    int userChoice;
     string menu;
     do {
         menu = this->dio->read();
         cout << menu << endl;
         cin >> option;
-        switch (option) {
+        try {
+            userChoice = stoi(option);
+        }catch(exception &e){
+            cout<<"invalid input"<<endl;
+            string invalidChoice = "invalid choice";
+            this->dio->write(invalidChoice);
+            continue;
+        }
+        switch (userChoice) {
             case 1:
-                this->dio->write(to_string(option));
+                this->dio->write(to_string(userChoice));
                 uploadCSV->execute();
                 break;
             case 2:
-                this->dio->write(to_string(option));
+                this->dio->write(to_string(userChoice));
                 setAlgo->execute();
                 break;
             case 3:
-                this->dio->write(to_string(option));
+                this->dio->write(to_string(userChoice));
                 classifyData->execute();
                 break;
             case 4:
-                this->dio->write(to_string(option));
+                this->dio->write(to_string(userChoice));
                 displayResults->execute();
                 break;
             case 5:
-                this->dio->write(to_string(option));
+                this->dio->write(to_string(userChoice));
                 downloadResults->execute();
                 break;
             case 8:
-                this->dio->write(to_string(option));
+                this->dio->write(to_string(userChoice));
                 break;
             default:
+                cout<<"invalid input"<<endl;
+                string invalidChoice = "invalid choice";
+                this->dio->write(invalidChoice);
                 break;
         }
-    } while (option != 8);
+    } while (userChoice != 8);
 }

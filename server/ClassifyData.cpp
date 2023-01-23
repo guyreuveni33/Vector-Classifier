@@ -25,8 +25,6 @@ ClassifyData::ClassifyData(DefaultIO *dio, vector<VectorBase> *masterVectorTrain
 
 
 void ClassifyData::execute() {
-    cout << this->algo->getK() << endl;
-    cout << this->algo->getDistanceMetric() << endl;
     if (this->masterVectorTrain->empty() || this->masterVectorTest->empty()) {
         string emptyMessage = "please upload data";
         this->dio->write(emptyMessage);

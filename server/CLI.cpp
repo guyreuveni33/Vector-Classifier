@@ -37,6 +37,9 @@ void CLI:: start(){
                       "8. exit";
         this->dio->write(menu);
         string choice = this->dio->read();
+        if(choice == "invalid choice") {
+            continue;
+        }
         try {
             i = stoi(choice);
         }

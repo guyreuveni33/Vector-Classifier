@@ -25,8 +25,6 @@ string SocketIO::read(){
     } else if (read_bytes < 0) {
         cout << "failed to read data";
     }
-    cout << buffer << endl;
-    cout << endl;
     return buffer;
 }
 

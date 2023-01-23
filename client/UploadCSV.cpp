@@ -23,6 +23,7 @@ void UploadCSV::execute() {
         while (getline(file, textLine)) {
             this->dio->write(textLine);
         }
+        file.close();
     } else {
         string s = "invalid input";
         cout << s << endl;
@@ -45,6 +46,7 @@ void UploadCSV::execute() {
         while (getline(file2, textLine)) {
             this->dio->write(textLine);
         }
+        file.close();
     } else {
         string s = "invalid input";
         cout << s << endl;

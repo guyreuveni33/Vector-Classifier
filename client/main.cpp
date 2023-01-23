@@ -66,13 +66,9 @@ int main(int argc, char *argv[]) {
     if (connect(sock, (struct sockaddr *) &sin, sizeof(sin)) < 0) {
         perror("error connecting to server");
     }
-    // This is the main loop of the client. It gets the user input, validates it, sends it to the server, and then
-    // receives the result from the server.
     DefaultIO *dio = new SocketIO(sock);
     CLI *cli = new CLI(dio);
     cli->start();
-
-
     close(sock);
     return 0;
 }
