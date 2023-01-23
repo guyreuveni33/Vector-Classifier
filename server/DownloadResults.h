@@ -17,12 +17,11 @@ public:
     void execute() override;
 
     DownloadResults(DefaultIO *dio, vector<VectorBase> *masterVectorTrain, vector<VectorBase> *masterVectorTest);
-    vector<VectorBase>* getMasterVectorTrain() override;
-    vector<VectorBase>* getMasterVectorTest() override;
+
 
 private:
-    vector<VectorBase> masterVectorTrain;
-    vector<VectorBase> masterVectorTest;
+    vector<VectorBase> *masterVectorTrain;
+    vector<VectorBase> *masterVectorTest;
 };
 
 #endif //EX4_AP_DOWNLOADRESULTS_H

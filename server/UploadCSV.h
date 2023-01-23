@@ -24,17 +24,15 @@ public:
  * @param masterVectorTest This is the vector that will hold the test data.
  * @param masterVectorTrain This is the vector that will hold the training data.
  */
-    UploadCSV(DefaultIO *dio,vector<VectorBase> *masterVectorTest,vector<VectorBase> *masterVectorTrain);
-    vector<VectorBase>* getMasterVectorTrain()override;
+    UploadCSV(DefaultIO *dio,vector<VectorBase> *masterVectorTrain, vector<VectorBase> *masterVectorTest);
     /**
  * This function returns a pointer to the masterVectorTest vector.
  *
  * @return A pointer to the masterVectorTest vector.
  */
-    vector<VectorBase>* getMasterVectorTest()override;
 private:
-    vector<VectorBase> masterVectorTrain;
-    vector<VectorBase> masterVectorTest;
+    vector<VectorBase> *masterVectorTrain;
+    vector<VectorBase> *masterVectorTest;
 };
 
 

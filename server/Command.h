@@ -13,8 +13,7 @@ public:
     //Command(int value);
     //virtual ~Command();
     virtual void execute() = 0;
-    virtual vector<VectorBase>* getMasterVectorTrain()=0;
-    virtual vector<VectorBase>* getMasterVectorTest()=0;
+
 
 protected:
     string description;

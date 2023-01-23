@@ -6,18 +6,16 @@
 
 
 CLI::CLI(DefaultIO *dio) {
-    vector<VectorBase> v1;
-    vector<VectorBase> v2;
+    vector<VectorBase> *v1 = new vector<VectorBase>();
+    vector<VectorBase> *v2 = new vector<VectorBase>();
 
-    vector<VectorBase> *v1Ptr = &v1;
-    vector<VectorBase> *v2Ptr = &v2;
     this->dio = dio;
-    Command *uploadCSV = new UploadCSV(dio, v1Ptr,v2Ptr);
-    Command *setAlgo = new SetAlgo(dio, v1Ptr, v2Ptr);
-    Command *classifyData = new ClassifyData(dio, v1Ptr, v2Ptr, ((SetAlgo*)(setAlgo))->getK(),
+    Command *uploadCSV = new UploadCSV(dio, v1,v2);
+    Command *setAlgo = new SetAlgo(dio, v1, v2);
+    Command *classifyData = new ClassifyData(dio, v1, v2, ((SetAlgo*)(setAlgo))->getK(),
                                              ((SetAlgo*)(setAlgo))->getDistanceMetric());
-    Command *displayResults = new DisplayResults(dio, v1Ptr, v2Ptr);
-    Command *downloadResults = new DownloadResults(dio, v1Ptr, v2Ptr);
+    Command *displayResults = new DisplayResults(dio, v1, v2);
+    Command *downloadResults = new DownloadResults(dio, v1, v2);
     this->commandVector.push_back(uploadCSV);
     this->commandVector.push_back(setAlgo);
     this->commandVector.push_back(classifyData);

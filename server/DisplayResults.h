@@ -27,24 +27,13 @@ public:
  * @param masterVectorTest This is the vector of test vectors.
  */
     DisplayResults(DefaultIO *dio, vector<VectorBase> *masterVectorTrain, vector<VectorBase> *masterVectorTest);
-    /**
- * It returns the masterVectorTrain.
- *
- * @return A pointer to the masterVectorTrain vector.
- */
-    vector<VectorBase>* getMasterVectorTrain() override;
 
-    /**
- * It returns the masterVectorTest.
- *
- * @return A pointer to the masterVectorTest vector.
- */
-    vector<VectorBase>* getMasterVectorTest() override;
+
 private:
 
-    vector<VectorBase> masterVectorTrain;
+    vector<VectorBase> *masterVectorTrain;
 
-    vector<VectorBase> masterVectorTest;
+    vector<VectorBase> *masterVectorTest;
 };
 
 #endif //EX4_AP_DISPLAYRESULTS_H

@@ -5,22 +5,15 @@
 #include <map>
 
 
-UploadCSV::UploadCSV(DefaultIO *dio, vector<VectorBase> *masterVectorTest, vector<VectorBase> *masterVectorTrain) {
+UploadCSV::UploadCSV(DefaultIO *dio, vector<VectorBase> *masterVectorTrain, vector<VectorBase> *masterVectorTest) {
     this->dio = dio;
     this->description = "upload an unclassified csv data file";
-    this->masterVectorTrain = vector<VectorBase>();
-    this->masterVectorTest = vector<VectorBase>();
+    this->masterVectorTrain = masterVectorTrain;
+    this->masterVectorTest = masterVectorTest;
 }
 
 
-vector<VectorBase>* UploadCSV::getMasterVectorTrain() {
-    return &this->masterVectorTrain;
-}
 
-
-vector<VectorBase>* UploadCSV::getMasterVectorTest() {
-    return &this->masterVectorTest;
-}
 
 void UploadCSV::execute() {
     //vector<VectorBase> masterVectorTrain;
@@ -49,7 +42,7 @@ void UploadCSV::execute() {
             }
         }
         VectorBase rowVector(s, digitVector, 0);
-        this->masterVectorTrain.push_back(rowVector);
+        this->masterVectorTrain->push_back(rowVector);
         // Clearing the string stream.
         lineStream.str("");
         // Clearing the vector.
@@ -59,7 +52,7 @@ void UploadCSV::execute() {
 
     string complete = "Upload complete.";
     this->dio->write(complete);
-    int vectorSize = this->masterVectorTrain.at(0).getDigitVectorSize();
+    int vectorSize = this->masterVectorTrain->at(0).getDigitVectorSize();
     string testUpload = "Please upload your local test CSV file.";
     this->dio->write(testUpload);
     line = this->dio->read();
@@ -92,7 +85,7 @@ void UploadCSV::execute() {
             exit(0);
         }
         VectorBase rowVector("", digitVector, 0);
-        this->masterVectorTest.push_back(rowVector);
+        this->masterVectorTest->push_back(rowVector);
         // Clearing the string stream.
         lineStream.str("");
         // Clearing the vector.

@@ -16,16 +16,10 @@ SetAlgo::SetAlgo(DefaultIO *dio, vector<VectorBase> *masterVectorTrain, vector<V
     this->description = "algorithm settings";
     this->k=5;
     this->distanceMetric="AUC";
-    this->masterVectorTest = *masterVectorTest;
-    this->masterVectorTrain = *masterVectorTrain;
-}
-vector<VectorBase>* SetAlgo::getMasterVectorTrain() {
-    return &masterVectorTrain;
+    this->masterVectorTest = masterVectorTest;
+    this->masterVectorTrain = masterVectorTrain;
 }
 
-vector<VectorBase>* SetAlgo::getMasterVectorTest() {
-    return &masterVectorTest;
-}
 string SetAlgo::getDistanceMetric() {
     return this->distanceMetric;
 }
