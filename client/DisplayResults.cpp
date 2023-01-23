@@ -27,15 +27,5 @@ void DisplayResults::execute() {
         string newParameters;
         cin.ignore();
         getline(cin,newParameters);
-        if (newParameters.empty()){
-            string emptyInput="-1";
-            this->dio->write(emptyInput);
-        }
-        // Do something with the input
-
-//        }
-        //char a;
-        // int counter;
-        //cout<<"Type:"<<endl;
     }
 }

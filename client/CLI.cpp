@@ -1,13 +1,4 @@
-//
-// Created by oem on 1/22/23.
-//
-
 #include "CLI.h"
-//
-// Created by oem on 1/22/23.
-//
-
-
 
 CLI::CLI(DefaultIO *dio) {
     this->dio = dio;
@@ -66,6 +57,7 @@ void CLI::start() {
                 downloadResults->execute();
                 break;
             case 8:
+                cout << "Goodbye!"<< endl;
                 this->dio->write(to_string(userChoice));
                 break;
             default:
