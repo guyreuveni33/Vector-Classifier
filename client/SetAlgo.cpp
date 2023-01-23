@@ -40,7 +40,7 @@ void SetAlgo::execute() {
             cout << "invalid value for K" << endl;
             cout << "invalid value for metric" << endl;
 }       else if(intErrorCheck>=10){
-            cout << "to many arguments" << endl;
+            cout << "too many arguments" << endl;
     }
 }}
 

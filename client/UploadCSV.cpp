@@ -24,8 +24,10 @@ void UploadCSV::execute() {
             this->dio->write(textLine);
         }
     } else {
-        cout << "invalid input\n";
-        exit(0);
+        string s = "invalid input";
+        cout << s << endl;
+        this->dio->write(s);
+        return;
     }
     this->dio->write("EOF");
     string uploadComplete = this->dio->read();
@@ -44,8 +46,10 @@ void UploadCSV::execute() {
             this->dio->write(textLine);
         }
     } else {
-        cout << "invalid input\n";
-        exit(0);
+        string s = "invalid input";
+        cout << s << endl;
+        this->dio->write(s);
+        return;
     }
     this->dio->write("EOF");
     uploadComplete = this->dio->read();

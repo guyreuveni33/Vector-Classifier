@@ -16,10 +16,12 @@ UploadCSV::UploadCSV(DefaultIO *dio, vector<VectorBase> *masterVectorTrain, vect
 
 
 void UploadCSV::execute() {
-    //vector<VectorBase> masterVectorTrain;
     string trainUpload = "Please upload your local train CSV file.";
     this->dio->write(trainUpload);
     string line = this->dio->read();
+    if(line == "invalid input") {
+        return;
+    }
     while (line != "EOF") {
         istringstream lineStream(line);
         string s;
@@ -36,8 +38,7 @@ void UploadCSV::execute() {
                     digitVector.push_back(d);
                 }
                 catch (exception &e) {
-                    cout << "invalid input" << endl;
-                    break;
+                    return;
                 }
             }
         }
@@ -48,6 +49,9 @@ void UploadCSV::execute() {
         // Clearing the vector.
         digitVector.clear();
         line = this->dio->read();
+//        if(line == "invalid input") {
+//            return;
+//        }
     }
 
     string complete = "Upload complete.";
@@ -56,7 +60,9 @@ void UploadCSV::execute() {
     string testUpload = "Please upload your local test CSV file.";
     this->dio->write(testUpload);
     line = this->dio->read();
-
+    if(line == "invalid input") {
+        return;
+    }
     while (line != "EOF") {
         istringstream lineStream(line);
         string s;
@@ -74,8 +80,7 @@ void UploadCSV::execute() {
                     digitVector.push_back(d);
                 }
                 catch (exception &e) {
-                    cout << "invalid input" << endl;
-                    break;
+                    return;
                 }
             }
         }
