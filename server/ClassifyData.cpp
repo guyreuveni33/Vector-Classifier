@@ -3,6 +3,7 @@
 //
 
 #include "SetAlgo.h"
+#include "Command.h"
 #include "UploadCSV.h"
 #include <iostream>
 #include <string>
@@ -13,26 +14,24 @@
 #include "ClassifyData.h"
 
 ClassifyData::ClassifyData(DefaultIO *dio, vector<VectorBase> *masterVectorTrain, vector<VectorBase> *masterVectorTest,
-                           int *k, string distanceMetric) {
+                           SetAlgo *algo) {
     this->dio = dio;
     this->description = "classify data";
     this->masterVectorTrain = masterVectorTrain;
     this->masterVectorTest = masterVectorTest;
-    this->k = k;
-    this->distanceMetric = distanceMetric;
+    this->algo = algo;
 
 }
 
 
-
 void ClassifyData::execute() {
-    //cout << this->k << endl;
-    //cout << this->distanceMetric << endl;
+    cout << this->algo->getK() << endl;
+    cout << this->algo->getDistanceMetric() << endl;
     if (this->masterVectorTrain->empty() || this->masterVectorTest->empty()) {
         string emptyMessage = "please upload data";
         this->dio->write(emptyMessage);
     }
-    else if(kCheck(*this->k, *this->masterVectorTrain) == 0){
+    else if(kCheck(this->algo->getK(), *this->masterVectorTrain) == 0){
         string emptyMessage = "K is invalid";
         this->dio->write(emptyMessage);
     }
@@ -44,14 +43,14 @@ void ClassifyData::execute() {
             // Iterate over all vectors in masterVectorTrain
             for (j = 0; j < masterVectorTrain->size(); j++) {
                 vector<double> trainVector = (*masterVectorTrain)[j].getVector();
-                double distance = distanceCalculator(this->distanceMetric, inputVector, trainVector);
+                double distance = distanceCalculator(this->algo->getDistanceMetric(), inputVector, trainVector);
                 // Set distance for the current train vector in masterVectorTrain
                 (*masterVectorTrain)[j].setAlgoDistance(distance);
             }
             // Sort masterVectorTrain by distance
             sortVector(*masterVectorTrain);
             // Find the most common class among the k closest vectors
-            string most_common = highestOccurrence(*k, *masterVectorTrain);
+            string most_common = highestOccurrence(this->algo->getK(), *masterVectorTrain);
             // Set the class for the current input vector in masterVectorTest
             (*masterVectorTest)[i].setStr(most_common);
             //cout<<most_common<<endl;

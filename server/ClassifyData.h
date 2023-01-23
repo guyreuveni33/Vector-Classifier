@@ -2,6 +2,7 @@
 // Created by oem on 1/16/23.
 //
 
+#include "SetAlgo.h"
 #include <iostream>
 #include <fstream>
 #include <string>
@@ -13,13 +14,13 @@ class ClassifyData : public Command {
 public:
     void execute() override;
     ClassifyData(DefaultIO *dio,vector<VectorBase> *masterVectorTrain,vector<VectorBase> *masterVectorTest,
-                 int *k,string distanceMetric);
+                 SetAlgo *algo);
+
 
 private:
     vector<VectorBase> *masterVectorTrain;
     vector<VectorBase> *masterVectorTest;
-    int *k;
-    string distanceMetric;
+    SetAlgo *algo;
 };
 
 #ifndef EX4_AP_CLASSIFYDATA_H

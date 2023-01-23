@@ -12,8 +12,9 @@ CLI::CLI(DefaultIO *dio) {
     this->dio = dio;
     Command *uploadCSV = new UploadCSV(dio, v1,v2);
     Command *setAlgo = new SetAlgo(dio, v1, v2);
-    Command *classifyData = new ClassifyData(dio, v1, v2, ((SetAlgo*)(setAlgo))->getK(),
-                                             ((SetAlgo*)(setAlgo))->getDistanceMetric());
+    //int k_value = ((SetAlgo*)(setAlgo))->getK();
+    //string distanceMetric = ((SetAlgo*)(setAlgo))->getDistanceMetric();
+    Command *classifyData = new ClassifyData(dio, v1, v2, (SetAlgo*)setAlgo);
     Command *displayResults = new DisplayResults(dio, v1, v2);
     Command *downloadResults = new DownloadResults(dio, v1, v2);
     this->commandVector.push_back(uploadCSV);
