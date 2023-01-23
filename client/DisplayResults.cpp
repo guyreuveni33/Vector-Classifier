@@ -25,7 +25,8 @@ void DisplayResults::execute() {
         string done = this->dio->read();
         cout << done << endl;
         string newParameters;
-        cin>>newParameters;
+        cin.ignore();
+        getline(cin,newParameters);
         if (newParameters.empty()){
             string emptyInput="-1";
             this->dio->write(emptyInput);

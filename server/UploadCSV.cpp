@@ -13,13 +13,11 @@ UploadCSV::UploadCSV(DefaultIO *dio, vector<VectorBase> *masterVectorTrain, vect
 }
 
 
-
-
 void UploadCSV::execute() {
     string trainUpload = "Please upload your local train CSV file.";
     this->dio->write(trainUpload);
     string line = this->dio->read();
-    if(line == "invalid input") {
+    if (line == "invalid input") {
         return;
     }
     while (line != "EOF") {
@@ -60,7 +58,7 @@ void UploadCSV::execute() {
     string testUpload = "Please upload your local test CSV file.";
     this->dio->write(testUpload);
     line = this->dio->read();
-    if(line == "invalid input") {
+    if (line == "invalid input") {
         return;
     }
     while (line != "EOF") {

@@ -21,7 +21,8 @@
 #include "ClassifyData.h"
 
 
-DownloadResults::DownloadResults(DefaultIO *dio, vector<VectorBase> *masterVectorTrain, vector<VectorBase> *masterVectorTest) {
+DownloadResults::DownloadResults(DefaultIO *dio, vector<VectorBase> *masterVectorTrain,
+                                 vector<VectorBase> *masterVectorTest) {
     this->dio = dio;
     this->description = "download results";
     this->masterVectorTest = masterVectorTest;
@@ -39,14 +40,15 @@ void DownloadResults::execute() {
     } else {
         string vectorSize = to_string(this->masterVectorTest->size());
         this->dio->write(vectorSize);
-        int loopSize = (int)this->masterVectorTest->size();
+        int loopSize = (int) this->masterVectorTest->size();
         int i;
         for (i = 0; i < loopSize; i++) {
             string resultDisplay = to_string(i + 1) + "\t" + this->masterVectorTest->at(i).getStr();
             this->dio->write(resultDisplay);
         }
-        string done = "Done.";
-        this->dio->write(done);
-//        this->dio->read();
+        string success = this->dio->read();
+        if (success != "success") {
+            return;
+        }
     }
 }

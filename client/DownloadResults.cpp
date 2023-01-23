@@ -3,6 +3,9 @@
 //
 
 #include "DownloadResults.h"
+#include <thread>
+#include <unistd.h>
+
 
 
 DownloadResults::DownloadResults(DefaultIO *dio) {
@@ -11,30 +14,55 @@ DownloadResults::DownloadResults(DefaultIO *dio) {
 
 
 void DownloadResults::execute() {
+    //vector<thread> threads;
     string feedback = this->dio->read();
     if (feedback == "please upload data" || feedback == "please classify the data") {
         cout << feedback << endl;
-    } else {
+    } else{
         int loopSize = stoi(feedback);
         int i;
         string theResults;
-        cout << "Please enter the file path where you want to write the results (include .csv extension):" << endl;
+        // cout << "Please enter the file path where you want to write the results (include .csv extension):" << endl;
         string filePath;
         cin >> filePath;
         ofstream outputFile(filePath);
-        for (i = 0; i < loopSize; i++) {
-            theResults = this->dio->read();
-            outputFile << theResults << endl;
+        string success;
+        if (outputFile.is_open()) {
+            success = "success";
+            vector<string> downloadVector;
+            fileStruct f;
+            for (i = 0; i < loopSize; i++) {
+                theResults = this->dio->read();
+                downloadVector.push_back(theResults);
+                //outputFile << theResults << endl;
+            }
+            f.downloadVector = downloadVector;
+            f.filePath = filePath;
+            outputFile.close();
+            thread t(foo, f);
+            t.detach();
+        } else {
+            success = "no success";
+            cout << "invalid input" << endl;
         }
-        string done = this->dio->read();
-        cout << done << endl;
-        outputFile.close();
-        string newParameters;
-        cin>>newParameters;
-        if (newParameters.empty()){
-            string emptyInput="-1";
-            this->dio->write(emptyInput);
-        }
+        this->dio->write(success);
     }
 }
+void foo(fileStruct f) {
+    int i;
+    string theResults;
+    ofstream outputFile(f.filePath);
+    string success;
+    if (outputFile.is_open()) {
+        //success = "success";
+        for (i = 0; i < f.downloadVector.size(); i++) {
+            theResults = f.downloadVector.at(i);
+            outputFile << theResults << endl;
+        }
+        outputFile.close();
+    } else {
+        return;
+    }
+}
+
 

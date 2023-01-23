@@ -21,7 +21,8 @@
 using namespace std;
 
 string clientValidation(std::string userInput);
-bool is_valid_ipv4(const std::string& ip);
+
+bool is_valid_ipv4(const std::string &ip);
 
 /**
  * This function creates a socket and receives the ip and the port number from the arguments.
@@ -36,17 +37,13 @@ bool is_valid_ipv4(const std::string& ip);
  * @return the result of the calculation.
  */
 int main(int argc, char *argv[]) {
-    // This is checking if the user entered the correct number of arguments.
-//    if (argc!=3){
-//        exit(0);
-//    }
     const char *ip_address = argv[1];
     // This is checking if the ip address is valid.
     if (!is_valid_ipv4(ip_address))
         exit(0);
     int port_no;
     try {
-            port_no = stoi(argv[2]);
+        port_no = stoi(argv[2]);
     }
     catch (exception &e) {
         exit(0);
@@ -72,55 +69,9 @@ int main(int argc, char *argv[]) {
     // This is the main loop of the client. It gets the user input, validates it, sends it to the server, and then
     // receives the result from the server.
     DefaultIO *dio = new SocketIO(sock);
-    CLI *cli=new CLI(dio);
+    CLI *cli = new CLI(dio);
     cli->start();
 
-
-
-//        command1->execute();
-//        command3->execute();
-//        command4->execute();
-//        string userInput;
-//        char buffer[4096];
-//        getline(cin, userInput);
-//        if (userInput == "-1") {
-//            break;
-//        }
-//        string retStr= clientValidation(userInput);
-//        // This is checking if the user input is valid. If it is not valid, the program will print "invalid input" and
-//        // will continue to the next iteration of the loop.
-//        if (retStr=="invalid input"){
-//            cout<<retStr<<endl;
-//            continue;
-//        }
-//        // It sets the first sizeof(buffer) bytes of the block of memory pointed by buffer to the specified value (0 in
-//        // this case).
-//        memset(&buffer, 0, sizeof(buffer));
-//        char arrayUserInput[userInput.size() + 1];
-//        // This function copies the string pointed to by userInput.c_str() to the array pointed to by arrayUserInput.
-//        strncpy(arrayUserInput, userInput.c_str(), userInput.size());
-//        arrayUserInput[userInput.size()] = '\0';
-//        int data_len = strlen(arrayUserInput);
-//        int sent_bytes = send(sock, arrayUserInput, data_len, 0);
-//        // This is checking if the data was sent successfully. If it was not sent successfully, the program will print
-//        // "failed to send data" and will break out of the loop.
-//        if (sent_bytes < 0) {
-//            cout << "failed to send data";
-//            break;
-//        }
-//        int expected_data_len = sizeof(buffer);
-//        int read_bytes = recv(sock, buffer, expected_data_len, 0);
-//        // This is checking if the connection was closed. If it was closed, the program will print "connection closed"
-//        // and will break out of the loop.
-//        if (read_bytes == 0) {
-//            cout << "connection closed";
-//            break;
-//        } else if (read_bytes < 0) {
-//            cout << "failed to receive data";
-//            break;
-//        } else {
-//            cout << buffer << endl;
-//        }
 
     close(sock);
     return 0;
@@ -139,7 +90,7 @@ string clientValidation(std::string userInput) {
     // Extract all the numbers until the first letter and save them in inputVector
     std::vector<double> inputVector;
     string s, distanceAlgo;
-    string retStr=" ";
+    string retStr = " ";
     int k;
     // This is checking if the user input is empty. If it is empty, the program will print "invalid input" and will
     // continue to the next iteration of the loop.
@@ -156,8 +107,8 @@ string clientValidation(std::string userInput) {
         }
         //This is checking if the user input is empty. If it is empty, the program will print "invalid input" and will
         // continue to the next iteration of the loop.
-        if(inputVector.empty()){
-            retStr= "invalid input";
+        if (inputVector.empty()) {
+            retStr = "invalid input";
             return retStr;
         }
         if (!numCheck(s)) {
@@ -166,14 +117,14 @@ string clientValidation(std::string userInput) {
             // input and will continue to the next iteration of the loop.
             if (distanceAlgo != "AUC" && distanceAlgo != "MAN" && distanceAlgo != "CHB" && distanceAlgo != "CAN"
                 && distanceAlgo != "MIN") {
-                retStr= "invalid input";
+                retStr = "invalid input";
                 break;
             }
             ss >> s;
             try {
                 k = stoi(s);
             } catch (exception &e) {
-                retStr= "invalid input";
+                retStr = "invalid input";
             }
             break;
         }
@@ -191,7 +142,7 @@ string clientValidation(std::string userInput) {
  * @return The function is_valid_ipv4() returns true if the string passed to it is a valid IPv4 address, and false
  * otherwise.
  */
-bool is_valid_ipv4(const std::string& ip) {
+bool is_valid_ipv4(const std::string &ip) {
     std::stringstream ip_stream(ip);
     std::string segment;
     int seg_count = 0;
@@ -203,7 +154,7 @@ bool is_valid_ipv4(const std::string& ip) {
             return false;
         }
         int num = 0;
-        for (char c : segment) {
+        for (char c: segment) {
             if (!isdigit(c)) {
                 return false;
             }

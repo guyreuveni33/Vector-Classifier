@@ -9,9 +9,17 @@
 #include <fstream>
 #include <string>
 #include "Command.h"
+#include <vector>
+
+struct fileStruct{
+    vector<string> downloadVector;
+    string filePath;
+};
+void foo(fileStruct f);
 
 class DownloadResults : public Command {
 public:
+
     void execute() override;
 
     DownloadResults(DefaultIO *dio);
