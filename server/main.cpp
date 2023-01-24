@@ -16,8 +16,17 @@
 
 using namespace std;
 
+/**
+ * "Start a new thread for the client."
+ *
+ * The function is called from the main thread, and it starts a new thread for the client
+ *
+ * @param cli The client object that is created by the server.
+ */
+void newClient(CLI *cli) {
+    cli->start();
+}
 
-void newClient(CLI *cli);
 
 
 /**
@@ -30,6 +39,9 @@ void newClient(CLI *cli);
  * @return the value of the expression.
  */
 int main(int argc, char *argv[]) {
+    if (argc!=2){
+        exit(0);
+    }
     int server_port;
     try {
         server_port = stoi(argv[1]);
@@ -59,7 +71,7 @@ int main(int argc, char *argv[]) {
     if (listen(sock, 1) < 0) {
         perror("error listening to a socket");
     }
-    vector<thread> clientThreads;
+
     // Creating a socket, binding it to a port, listening to it, accepting a client, receiving a message from the
     // client calculating the result, sending the result back to the client, and closing the connection.
     while (true) {
@@ -71,22 +83,12 @@ int main(int argc, char *argv[]) {
         }
         DefaultIO *dio = new SocketIO(client_sock);
         CLI *cli = new CLI(dio);
-        clientThreads.push_back(thread(newClient, cli));
-        clientThreads.at(clientThreads.size()-1).detach();
+        thread ct(newClient,cli);
+        ct.detach();
     }
-    close(sock);
+    //close(sock);
     return 0;
 }
 
-/**
- * "Start a new thread for the client."
- *
- * The function is called from the main thread, and it starts a new thread for the client
- *
- * @param cli The client object that is created by the server.
- */
-void newClient(CLI *cli) {
-    cli->start();
-}
 
 

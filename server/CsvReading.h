@@ -1,5 +1,6 @@
 #ifndef EX3_AP_CSVREADING_H
 #define EX3_AP_CSVREADING_H
+
 #include "VectorCreation.h"
 #include "VectorBase.h"
 #include "algorithm"
@@ -58,7 +59,7 @@ string highestOccurrence(int k, vector<VectorBase> &masterVector);
  *
  * @return The final classification string.
  */
-string csvIsValid(int k,string fileName, string distanceAlgo, vector<VectorBase> &masterVector,
-                vector<double> &inputVector);
+string csvIsValid(int k, string fileName, string distanceAlgo, vector<VectorBase> &masterVector,
+                  vector<double> &inputVector);
 
 #endif

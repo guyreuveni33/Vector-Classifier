@@ -1,6 +1,7 @@
 #include "CLI.h"
 
-CLI::CLI(DefaultIO *dio) {
+CLI::CLI(DefaultIO *dio,int socket) {
+    this->socket=socket;
     this->dio = dio;
     Command *uploadCSV = new UploadCSV(dio);
     Command *setAlgo = new SetAlgo(dio);
@@ -15,11 +16,6 @@ CLI::CLI(DefaultIO *dio) {
 }
 
 void CLI::start() {
-    //Command *uploadCSV = new UploadCSV(this->dio);
-    //Command *setAlgo = new SetAlgo(this->dio);
-    //Command *classifyData = new ClassifyData(this->dio);
-    //Command *displayResults = new DisplayResults(this->dio);
-    //Command *downloadResults = new DownloadResults(this->dio);
     string option;
     int userChoice;
     string menu;
@@ -29,7 +25,7 @@ void CLI::start() {
         cout << menu << endl;
         getline(cin, option);
         try {
-            if(option.empty())
+            if (option.empty())
                 throw exception();
             userChoice = stoi(option);
         } catch (exception &e) {
@@ -60,8 +56,13 @@ void CLI::start() {
                 commandVector.at(4)->execute();
                 break;
             case 8:
+
                 cout << "Goodbye!" << endl;
                 this->dio->write(to_string(userChoice));
+                for (int j = 0; j < commandVector.size(); ++j) {
+                    free(commandVector.at(j));
+                }
+                close(this->socket);
                 break;
             default:
                 cout << "invalid input" << endl;

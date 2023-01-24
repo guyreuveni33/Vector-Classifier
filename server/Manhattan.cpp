@@ -1,13 +1,6 @@
 #include "Manhattan.h"
 
-/**
- * The function takes two vectors of doubles as parameters and returns the Manhattan distance between them
- *
- * @param v1 The first vector
- * @param v2 the vector of the test data
- *
- * @return The distance between the two vectors.
- */
+
 double Manhattan::algorithm(vector<double> &v1, vector<double> &v2) {
     int i;
     double sum = 0;

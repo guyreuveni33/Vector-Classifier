@@ -11,24 +11,22 @@
 class UploadCSV : public Command {
 public:
 
-    /**
-  * This function reads in the CSV files from the user and stores them in a vector of VectorBase objects
-  */
+
+/**
+ * This function reads in the CSV file and stores the data in a vector of VectorBase objects
+ */
     void execute() override;
 
-    /**
- * This function is a constructor for the UploadCSV class
+
+/**
+ * This function is a constructor for the UploadCSV class.
  *
- * @param dio this is the DefaultIO object that is used to read and write to the console.
- * @param masterVectorTest This is the vector that will hold the test data.
+ * @param dio a pointer to the DefaultIO object that is used to read and write to the console.
  * @param masterVectorTrain This is the vector that will hold the training data.
+ * @param masterVectorTest This is the vector that will hold the test data.
  */
-    UploadCSV(DefaultIO *dio,vector<VectorBase> *masterVectorTrain, vector<VectorBase> *masterVectorTest);
-    /**
- * This function returns a pointer to the masterVectorTest vector.
- *
- * @return A pointer to the masterVectorTest vector.
- */
+    UploadCSV(DefaultIO *dio, vector<VectorBase> *masterVectorTrain, vector<VectorBase> *masterVectorTest);
+
 private:
     vector<VectorBase> *masterVectorTrain;
     vector<VectorBase> *masterVectorTest;

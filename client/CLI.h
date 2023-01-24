@@ -9,16 +9,28 @@
 #include "DownloadResults.h"
 #include <vector>
 #include "vector"
-
+#include <netinet/in.h>
+#include <unistd.h>
 class CLI {
 public:
-    //A function that calculates the distance between two vectors.
-    CLI(DefaultIO *dio);
+
+/**
+ * It creates a new CLI object, and initializes the commandVector with the five commands
+ *
+ * @param dio The DefaultIO object that will be used to communicate with the user.
+ */
+    CLI(DefaultIO *dio, int socket);
+
+/**
+ * It reads the menu from the server, prints it to the user, reads the user's choice, sends it to the server, and executes
+ * the appropriate command
+ */
     void start();
 
 private:
+    int socket;
     DefaultIO *dio;
-    vector<Command*> commandVector;
+    vector<Command *> commandVector;
 };
 
 

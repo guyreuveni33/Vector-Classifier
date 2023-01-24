@@ -10,8 +10,7 @@ using namespace std;
 
 class Command {
 public:
-    //Command(int value);
-    //virtual ~Command();
+    //virtual method
     virtual void execute() = 0;
 protected:
     string description;

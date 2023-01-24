@@ -15,6 +15,7 @@ public:
  * This function displays the results of the classification
  */
     void execute() override;
+
 /**
  * This function is the constructor for the DisplayResults class.
  *

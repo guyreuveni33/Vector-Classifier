@@ -10,12 +10,11 @@
 
 class DownloadResults : public Command {
 public:
-    /**
- * It sends the classified data to the client
- *
- * @return The results of the classification are being returned.
+/**
+ * It sends the classified data to the client in order to create a document of the classification data.
  */
     void execute() override;
+
 /**
  * This function downloads the results of the training and testing vectors, this is the cotr.
  *

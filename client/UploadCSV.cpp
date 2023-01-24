@@ -2,14 +2,16 @@
 #include <iostream>
 #include <map>
 
+
 UploadCSV::UploadCSV(DefaultIO *dio) {
     this->dio = dio;
 }
+
 void UploadCSV::execute() {
     string startMsg = this->dio->read();
     cout << startMsg << endl;
     string fileNameTrain;
-    getline(cin , fileNameTrain);
+    getline(cin, fileNameTrain);
     string textLine;
     // Opening the file and reading it.
     fstream file(fileNameTrain, ios::in);

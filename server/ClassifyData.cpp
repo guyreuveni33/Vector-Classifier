@@ -12,21 +12,16 @@ ClassifyData::ClassifyData(DefaultIO *dio, vector<VectorBase> *masterVectorTrain
     this->masterVectorTrain = masterVectorTrain;
     this->masterVectorTest = masterVectorTest;
     this->algo = algo;
-
 }
-
-
 
 void ClassifyData::execute() {
     if (this->masterVectorTrain->empty() || this->masterVectorTest->empty()) {
         string emptyMessage = "please upload data";
         this->dio->write(emptyMessage);
-    }
-    else if(kCheck(this->algo->getK(), *this->masterVectorTrain) == 0){
+    } else if (kCheck(this->algo->getK(), *this->masterVectorTrain) == 0) {
         string emptyMessage = "K is invalid";
         this->dio->write(emptyMessage);
-    }
-    else {
+    } else {
         // Iterate over all input vectors in masterVectorTest
         int i, j;
         for (i = 0; i < masterVectorTest->size(); i++) {

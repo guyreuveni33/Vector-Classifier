@@ -1,13 +1,6 @@
 #include "Minkowski.h"
 
-/**
- * It takes two vectors of doubles, and returns the Minkowski distance between them
- *
- * @param v1 The first vector
- * @param v2 The vector that we are comparing to.
- *
- * @return The distance between two vectors.
- */
+
 double Minkowski::algorithm(vector<double> &v1, vector<double> &v2) {
     int i;
     double sum = 0;

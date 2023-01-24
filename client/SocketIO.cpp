@@ -6,6 +6,11 @@
 
 using namespace std;
 
+/**
+ * It reads the input from the client and returns it as a string
+ *
+ * @return The buffer.
+ */
 string SocketIO::read() {
     char buffer[4096];
     int expected_data_len = sizeof(buffer);
@@ -21,6 +26,11 @@ string SocketIO::read() {
     return buffer;
 }
 
+/**
+ * It sends the string to the client and receives a confirmation from the client
+ *
+ * @param s The string to send to the client.
+ */
 void SocketIO::write(string s) {
     char buffer[2];
     // Receiving the input from the client.

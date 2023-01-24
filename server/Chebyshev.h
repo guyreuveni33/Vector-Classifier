@@ -1,5 +1,6 @@
 #ifndef EX3_AP_CHEBYSHEV_H
 #define EX3_AP_CHEBYSHEV_H
+
 #include "MasterDistance.h"
 
 //A class that inherits from the MasterDistance class.
@@ -14,7 +15,7 @@ public:
  *
  * @return The maximum difference between the two vectors.
  */
-     double algorithm(vector<double> &v1, vector<double> &v2);
+    double algorithm(vector<double> &v1, vector<double> &v2);
 };
 
 #endif

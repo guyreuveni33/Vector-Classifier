@@ -15,7 +15,17 @@ public:
  * common class among the k closest vectors, and sets the class for the current input vector in masterVectorTest
  */
     void execute() override;
-    ClassifyData(DefaultIO *dio,vector<VectorBase> *masterVectorTrain,vector<VectorBase> *masterVectorTest,
+
+/**
+ * This function takes in a DefaultIO object, a vector of VectorBase objects, a vector of VectorBase objects, and a SetAlgo
+ * object.
+ *
+ * @param dio This is the DefaultIO object that is used to read in the data.
+ * @param masterVectorTrain This is the vector of training data.
+ * @param masterVectorTest This is the vector of test data.
+ * @param algo The algorithm to use for classification.
+ */
+    ClassifyData(DefaultIO *dio, vector<VectorBase> *masterVectorTrain, vector<VectorBase> *masterVectorTest,
                  SetAlgo *algo);
 
 

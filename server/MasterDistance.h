@@ -1,5 +1,6 @@
 #ifndef EX3_AP_MASTERDISTANCE_H
 #define EX3_AP_MASTERDISTANCE_H
+
 #include <cmath>
 #include <vector>
 
@@ -12,7 +13,15 @@ private:
     vector<double> v1;
     vector<double> v2;
 public:
-    //A virtual function that takes two vectors of doubles as parameters.
+
+/**
+ * This function takes two vectors of doubles and returns 0.
+ *
+ * @param v1 the first vector
+ * @param v2 The vector to compare against.
+ *
+ * @return 0
+ */
     virtual double algorithm(vector<double> &v1, vector<double> &v2);
 };
 

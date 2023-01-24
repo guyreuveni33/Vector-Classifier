@@ -15,8 +15,6 @@
 
 using namespace std;
 
-string clientValidation(std::string userInput);
-
 bool is_valid_ipv4(const std::string &ip);
 
 /**
@@ -32,6 +30,9 @@ bool is_valid_ipv4(const std::string &ip);
  * @return the result of the calculation.
  */
 int main(int argc, char *argv[]) {
+    if (argc!=3){
+        exit(0);
+    }
     const char *ip_address = argv[1];
     // This is checking if the ip address is valid.
     if (!is_valid_ipv4(ip_address))
@@ -62,66 +63,10 @@ int main(int argc, char *argv[]) {
         perror("error connecting to server");
     }
     DefaultIO *dio = new SocketIO(sock);
-    CLI *cli = new CLI(dio);
+    CLI *cli = new CLI(dio, sock);
     cli->start();
-    close(sock);
+    //close(sock);
     return 0;
-}
-
-/**
- * This function runs the tests on the user input and validates it’s values
- *
- * @param userInput The string that the user entered.
- *
- * @return a string.
- */
-string clientValidation(std::string userInput) {
-    // Initialize the stringstream with the buffer string
-    std::stringstream ss(userInput);
-    // Extract all the numbers until the first letter and save them in inputVector
-    std::vector<double> inputVector;
-    string s, distanceAlgo;
-    string retStr = " ";
-    int k;
-    // This is checking if the user input is empty. If it is empty, the program will print "invalid input" and will
-    // continue to the next iteration of the loop.
-    if (userInput.empty()) {
-        retStr = "invalid input";
-        return retStr;
-    }
-    // This is the validation of the user input. It checks if the user input is valid and if it is not valid, it
-    // returns "invalid input".
-    while (ss >> s) {
-        // This is checking if the string is a number. If it is a number, it will push it to the vector.
-        if (numCheck(s) == 1) {
-            inputVector.push_back(stod(s));
-        }
-        //This is checking if the user input is empty. If it is empty, the program will print "invalid input" and will
-        // continue to the next iteration of the loop.
-        if (inputVector.empty()) {
-            retStr = "invalid input";
-            return retStr;
-        }
-        if (!numCheck(s)) {
-            distanceAlgo = s;
-            // This is checking if the distance algorithm is valid. If it is not valid, the program will print invalid
-            // input and will continue to the next iteration of the loop.
-            if (distanceAlgo != "AUC" && distanceAlgo != "MAN" && distanceAlgo != "CHB" && distanceAlgo != "CAN"
-                && distanceAlgo != "MIN") {
-                retStr = "invalid input";
-                break;
-            }
-            ss >> s;
-            try {
-                k = stoi(s);
-            } catch (exception &e) {
-                retStr = "invalid input";
-            }
-            break;
-        }
-    }
-
-    return retStr;
 }
 
 /**

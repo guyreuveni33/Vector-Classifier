@@ -1,5 +1,6 @@
 #ifndef EX4_AP_CLI_H
 #define EX4_AP_CLI_H
+
 #include "Command.h"
 #include "UploadCSV.h"
 #include "SetAlgo.h"
@@ -16,15 +17,17 @@ public:
  *
  * @param dio DefaultIO object
  */
-     CLI(DefaultIO *dio);
+    CLI(DefaultIO *dio);
 
 /**
  * It displays a menu, reads the user's choice, and executes the corresponding command
  */
     void start();
+
+
 private:
     DefaultIO *dio;
-    vector<Command*> commandVector;
+    vector<Command *> commandVector;
 };
 
 

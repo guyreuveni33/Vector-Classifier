@@ -20,10 +20,12 @@ void UploadCSV::execute() {
     if (line == "invalid input") {
         return;
     }
-    if(!masterVectorTrain->empty() || !masterVectorTest->empty()){
+    // This is checking if the vectors are empty. If they are not, it will clear them.
+    if (!masterVectorTrain->empty() || !masterVectorTest->empty()) {
         masterVectorTrain->clear();
         masterVectorTest->clear();
     }
+    // This is reading in the CSV file and storing the data in a vector of VectorBase objects.
     while (line != "EOF") {
         istringstream lineStream(line);
         string s;
@@ -51,11 +53,7 @@ void UploadCSV::execute() {
         // Clearing the vector.
         digitVector.clear();
         line = this->dio->read();
-//        if(line == "invalid input") {
-//            return;
-//        }
     }
-
     string complete = "Upload complete.";
     this->dio->write(complete);
     int vectorSize = this->masterVectorTrain->at(0).getDigitVectorSize();
@@ -69,7 +67,6 @@ void UploadCSV::execute() {
         istringstream lineStream(line);
         string s;
         vector<double> digitVector;
-        //for(int i=0; i<vectorSize; i++){
         while (getline(lineStream, s, ',')) {
             char br = s.back();
             if (br == '\r')
