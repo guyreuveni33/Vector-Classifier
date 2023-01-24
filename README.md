@@ -79,14 +79,10 @@ in the menu:
 1. If the vectors from the calssified file and the vectors from the unclassified are not of the same length the program will print invalid input.
 
 2. if the vectors in the files consist of anything like the following the program will print invalid input:
-  - if the input is empty
+  - if the vector is empty
   - if there is more than one decimal period in a single number.
-  - if the numbers in the vector part of the input consist of anything other than a decimal period or a digit such as letter, signs and so on.
-  - if the distance algo in the input is not in one of the following formats : "MIN",  "AUC", "MAN", "CAN", "CHB"
-  - if the k is not in a valid range meaning if it is a negative sign or larger than the master vector.
-  - if the k is not an integer.
-  - if the input is correct but is not in the right order.
-  - if the amount of double values in the vector is different from the amount of values in each line in the read file.
+  - if the numbers in the vector consist of anything other than a decimal period or a digit such as letter, signs and so on.
+  - if the amount of double values in the unclassified file vector is different from the amount of values in each line in the classified file.
   - if one of the vector values is greater than a double value.
 
 3. The minkowski algorithm is the base to the manhattan and euclidean algorithms. In manhattan the p value is the constant 1 and in the euclidean the p value is the constant 2.
@@ -96,9 +92,8 @@ in the menu:
 5. In the canberra algorithm we covered the case where the division by zero could occur and made sure to avoid the calculation.
 
 6. if the input of the server command line is invalid, the program will exit, such as :
-  - if there are more or less that 3 arguments including the ./a.out
+  - if there are more or less that 2 arguments including the ./a.out
   - if the port number is not between 1025 and 65535
-  - if the file route is incorrect(in that case it will also print "could not open file" before exiting)
 
 7. if the input of the client command line is invalid, the program will exit, such as :
   - if there are more or less that 3 arguments including the ./a.out
