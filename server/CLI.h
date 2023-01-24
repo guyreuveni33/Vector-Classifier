@@ -11,8 +11,16 @@
 
 class CLI {
 public:
-    //A function that calculates the distance between two vectors.
-    CLI(DefaultIO *dio);
+/**
+ * It creates a vector of commands, and then pushes the commands into the vector
+ *
+ * @param dio DefaultIO object
+ */
+     CLI(DefaultIO *dio);
+
+/**
+ * It displays a menu, reads the user's choice, and executes the corresponding command
+ */
     void start();
 private:
     DefaultIO *dio;

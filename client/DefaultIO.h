@@ -13,3 +13,5 @@ protected:
 
 };
 #endif //EX4_AP_DEFAULTIO_H
+//#/home/oem/CLionProjects/ex4_AP/server/datasets/iris/iris_classified.csv
+//#/home/oem/CLionProjects/ex4_AP/server/datasets/iris/iris_Unclassified.csv

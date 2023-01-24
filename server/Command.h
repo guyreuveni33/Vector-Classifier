@@ -3,11 +3,15 @@
 #include <string>
 #include "DefaultIO.h"
 #include "VectorBase.h"
+#include "Minkowski.h"
+#include "CsvReading.h"
+#include <fstream>
+#include <iostream>
+#include <map>
 using namespace std;
 
 class Command {
 public:
-    //Command(int value);
     //virtual ~Command();
     virtual void execute() = 0;
 

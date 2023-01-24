@@ -7,6 +7,7 @@
 #include "ClassifyData.h"
 
 
+
 DownloadResults::DownloadResults(DefaultIO *dio, vector<VectorBase> *masterVectorTrain,
                                  vector<VectorBase> *masterVectorTest) {
     this->dio = dio;
@@ -14,6 +15,7 @@ DownloadResults::DownloadResults(DefaultIO *dio, vector<VectorBase> *masterVecto
     this->masterVectorTest = masterVectorTest;
     this->masterVectorTrain = masterVectorTrain;
 }
+
 
 
 void DownloadResults::execute() {

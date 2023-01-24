@@ -15,11 +15,11 @@ CLI::CLI(DefaultIO *dio) {
 }
 
 void CLI::start() {
-    Command *uploadCSV = new UploadCSV(this->dio);
-    Command *setAlgo = new SetAlgo(this->dio);
-    Command *classifyData = new ClassifyData(this->dio);
-    Command *displayResults = new DisplayResults(this->dio);
-    Command *downloadResults = new DownloadResults(this->dio);
+    //Command *uploadCSV = new UploadCSV(this->dio);
+    //Command *setAlgo = new SetAlgo(this->dio);
+    //Command *classifyData = new ClassifyData(this->dio);
+    //Command *displayResults = new DisplayResults(this->dio);
+    //Command *downloadResults = new DownloadResults(this->dio);
     string option;
     int userChoice;
     string menu;
@@ -41,23 +41,23 @@ void CLI::start() {
         switch (userChoice) {
             case 1:
                 this->dio->write(to_string(userChoice));
-                uploadCSV->execute();
+                commandVector.at(0)->execute();
                 break;
             case 2:
                 this->dio->write(to_string(userChoice));
-                setAlgo->execute();
+                commandVector.at(1)->execute();
                 break;
             case 3:
                 this->dio->write(to_string(userChoice));
-                classifyData->execute();
+                commandVector.at(2)->execute();
                 break;
             case 4:
                 this->dio->write(to_string(userChoice));
-                displayResults->execute();
+                commandVector.at(3)->execute();
                 break;
             case 5:
                 this->dio->write(to_string(userChoice));
-                downloadResults->execute();
+                commandVector.at(4)->execute();
                 break;
             case 8:
                 cout << "Goodbye!" << endl;

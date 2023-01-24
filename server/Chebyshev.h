@@ -5,8 +5,16 @@
 //A class that inherits from the MasterDistance class.
 class Chebyshev : public MasterDistance {
 public:
-    //A function that calculates the distance between two vectors.
-    double algorithm(vector<double> &v1, vector<double> &v2);
+/**
+ * The function takes two vectors of the same size and returns the maximum difference between the corresponding elements
+ * of the two vectors
+ *
+ * @param v1 the vector of the first image
+ * @param v2 the vector of the query image
+ *
+ * @return The maximum difference between the two vectors.
+ */
+     double algorithm(vector<double> &v1, vector<double> &v2);
 };
 
 #endif

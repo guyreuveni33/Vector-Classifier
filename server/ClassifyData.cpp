@@ -1,10 +1,9 @@
 #include "SetAlgo.h"
 #include "Command.h"
-#include <map>
 #include "CsvReading.h"
 #include "Minkowski.h"
 #include "ClassifyData.h"
-#include <iostream>
+
 
 ClassifyData::ClassifyData(DefaultIO *dio, vector<VectorBase> *masterVectorTrain, vector<VectorBase> *masterVectorTest,
                            SetAlgo *algo) {
@@ -15,6 +14,7 @@ ClassifyData::ClassifyData(DefaultIO *dio, vector<VectorBase> *masterVectorTrain
     this->algo = algo;
 
 }
+
 
 
 void ClassifyData::execute() {

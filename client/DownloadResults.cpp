@@ -17,7 +17,8 @@ void DownloadResults::execute() {
         string theResults;
         // cout << "Please enter the file path where you want to write the results (include .csv extension):" << endl;
         string filePath;
-        cin >> filePath;
+        cin.ignore();
+        getline(cin, filePath);
         ofstream outputFile(filePath);
         string success;
         if (outputFile.is_open()) {

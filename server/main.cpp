@@ -1,7 +1,6 @@
 #include "VectorCreation.h"
 #include "VectorBase.h"
 #include "CsvReading.h"
-#include <iostream>
 #include <sys/socket.h>
 #include <stdio.h>
 #include <netinet/in.h>
@@ -18,7 +17,6 @@
 using namespace std;
 
 
-string calculate(char buffer[], string fileName);
 void newClient(CLI *cli);
 
 
@@ -80,47 +78,15 @@ int main(int argc, char *argv[]) {
     return 0;
 }
 
+/**
+ * "Start a new thread for the client."
+ *
+ * The function is called from the main thread, and it starts a new thread for the client
+ *
+ * @param cli The client object that is created by the server.
+ */
 void newClient(CLI *cli) {
     cli->start();
 }
-/**
- * It takes in a string, extracts the numbers,distance algorithm and K from it, and then uses those values to calculate
- * the distance
- *
- * @param buffer The string that contains the input from the user
- * @param fileName The name of the csv file that contains the data
- *
- * @return the class of the input vector.
- */
-string calculate(char buffer[], std::string fileName) {
-    // Initialize the stringstream with the buffer string
-    std::stringstream ss(buffer);
-    // Extract all the numbers until the first letter and save them in inputVector
-    std::vector<double> inputVector;
-    string s, distanceAlgo;
-    int k;
-    // Extracting the numbers from the input string and saving them in inputVector.
-    while (ss >> s) {
-        try {
-            // Converting the string to a double and then pushing it to the inputVector.
-            inputVector.push_back(stod(s));
-        } catch (exception &e) {
-            distanceAlgo = s;
-            ss >> s;
-            try {
-                k = stoi(s);
-            } catch (exception &e) {
-                string retStr = "invalid input";
-                return retStr;
-            }
-        }
-    }
-    // Use the extracted values to calculate the distance
-    std::vector<VectorBase> masterVector;
 
-    string finalClass = csvIsValid(k, fileName, distanceAlgo, masterVector, inputVector);
-    masterVector.clear();
-    inputVector.clear();
-    return finalClass;
-}
 
