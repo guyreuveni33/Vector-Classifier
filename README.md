@@ -10,6 +10,7 @@ Server side: the server receives two arguments from the command line, the first 
 
 In order to operate the program, we will first need to turn on the server so that it will be able to connect to a client using the port number. after that the client will connect to the server, and now the server will wait for a message from the client. the server and client will communicate through a socket called dio, both of them will create a dio and then send it to a CLI class, which will hold a vector to all the commands. the menu will then open up to the client and the user will choose an option from the menu, according to the option chosen by the user, the class of the chosen option from the menu will execute and start communicating with the server. the communication will happen through the class socketIO that both the client and the server hold. when the client writes the server reads and when the server writes the client reads. they will go back and forth until the option chosen has been fully executed.
 the options from the menu are:
+
 1. upload a classified and unclassified csv file accordingly :
   the user will choose 1, then the client will ask the user to enter a filepath for a classified csv file. when the path is entered, the user will   open the file and send its content to the server and the server will store the content in a mastervector call train.
   after that the client will ask for the user to enter a path for an unclassified csv file. when the path is entered, the user will open the file   and send its content to the server and the server will store the content in a mastervector call tesr. after entering two valid filepaths, the     server will send the menu to the client and the client will print for the menu again.
@@ -35,7 +36,7 @@ In order to run the program you need to clone it to your PC and :
 
 1. Use the cd command to access the cloned directory
 
-2. Use the command "cd ex3_AP" in order to access the c++ file containing all the headers and classes
+2. Use the command "cd ex4_AP" in order to access the c++ file containing all the headers and classes
 
 3. Now you need to compile the files using the "make" command.
 
@@ -43,13 +44,41 @@ In order to run the program you need to clone it to your PC and :
 
 5. enter "./client.out" and the enter the arguments listed above (ip, port) accordingly.
 
-6. Now you can enter the input and run the program.
+6. Now you can enter choose an option from the file and run the program.
 
 NOTES :
 
-1. If the vectors from the user input and the vectors from the read file are not of the same length the program will print invalid input.
+in option 1:
+  -if the path of the classified or unclassified file is invalid the client will print "invalid input" and print the menu again.
 
-2. If the input consists of anything other than the vector values, distance algo and k value the program will print invalid input, such as:
+in option 2:
+  - if the user presses 'enter' button then there will be no changes to the settings and the menu will pop up again.
+  - if the user enters an invalid K, meaning not an integer value then the client will print invalid K and the menu will pop up again with no changes to the algo settings.
+  - if the user enters an invalid distance metric, meaning not one of "MIN",  "AUC", "MAN", "CAN", "CHB" then the client will print invalid distance metric and the menu will pop up again with no changes to the algo settings.
+  -  if both the K and distance metric are invalid the client will print an invalid error for both of them with no changes to the algo settings and the menu will pop up.
+
+in option 3:
+  - if the both files or one of the files were not uploaded in option 1 then the client will ask the user to upload files and return to the menu.
+  - if the k is invalid meaning if it is a negative sign or larger than the master vector the program will tell the user the k is invalid and the menu will pop up again.
+
+in option 4:
+  - if the both files or one of the files were not uploaded in option 1 then the client will ask the user to upload files and return to the menu.
+  - if the file was not classified in option 3 the client will ask the user to classify the data and open the menu.
+  - after the printing ends the client will print done and wait for the user to press 'enter' and then return to the menu. the enter can come after any string input and the program will still return to the menu, for example 'fdswfs\n' is ok because it ended with '\n'.
+
+in option 5:
+  - if the both files or one of the files were not uploaded in option 1 then the client will ask the user to upload files and return to the menu.
+  - if the file was not classified in option 3 the client will ask the user to classify the data and open the menu.
+
+in the menu:
+  - if the user enters an invalid option like a number other than 1-5 and 8 the client will print invalid input and will return to the menu.
+  - if the user enters any string that is not one of the valid numbers in the menu the client will print invalid input and return to the menu.
+
+
+
+1. If the vectors from the calssified file and the vectors from the unclassified are not of the same length the program will print invalid input.
+
+2. if the vectors in the files consist of anything like the following the program will print invalid input:
   - if the input is empty
   - if there is more than one decimal period in a single number.
   - if the numbers in the vector part of the input consist of anything other than a decimal period or a digit such as letter, signs and so on.
