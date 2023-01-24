@@ -1,4 +1,4 @@
-# ex3_AP
+# ex4_AP
 
 Advanced Programming 1 by Niv Swisa & Guy Reuveni -
 
@@ -7,6 +7,14 @@ WHAT THE PROGRAM DOES :
 This is a machine learning program. This program is divided into two sides, client and server.
 Client side: the client receives two arguments from the command line, the first argument is the ip number and the second argument is the port number.
 Server side: the server receives two arguments from the command line, the first argument is the file route and the second argument is the port number.
+
+In order to operate the program, we will first need to turn on the server so that it will be able to connect to a client using the port number. after that the client will connect to the server, and now the server will wait for a message from the client. the server and client will communicate through a socket called dio, both of them will create a dio and then send it to a CLI class, which will hold a vector to all the commands. the menu will then open up to the client and the user will choose an option from the menu, according to the option chosen by the user, the class of the chosen option from the menu will execute and start communicating with the server. the communication will happen through the class socketIO that both the client and the server hold. when the client writes the server reads and when the server writes the client reads. they will go back and forth until the option chosen has been fully executed.
+the options from the menu are:
+1. upload a classified and unclassifies csv file accordingly.
+2. set a k value and a distance metric for future calculations.
+3. classify the unclassified file with the k and distance metric that is set in option 2 and according to the classified file
+4. print all the classification and the row number of the classification to the client on the screen
+5. perform the exact same thing as option 4 but instead of printing it on the screen create a new file and print it in the file locally on the computer.
 
 In order to operate the program, we will first need to turn on the server so that it will be able to connect to a client using the port number. after that the client will connect to the server, and now the server will wait for a message from the client. after performing these opreations the client will input a string that should consist of three things : a number of double values that will represent a vector, a distance algorithm from one of the following - "MIN" - minkowski, "AUC" - euclidean, "MAN" - manhattan, "CAN" - canberra and "CHB" - chebyshev, and finally an integer that will be marked as 'K'.
 after receiving the input, the client will make an initial check for the validity of the string, meaning checking if it contains all of the above values as listed. if the input is valid, the input will be sent to the server, otherwise the program will print an 'invalid input' message and wait for a new input from the user. the server will now receive the user input and split the string to three parts, a vector, distance algorithm and the 'k' value. 
