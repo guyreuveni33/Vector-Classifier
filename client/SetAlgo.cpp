@@ -12,7 +12,7 @@ void SetAlgo::execute() {
     currentKNN=this->dio->read();
     cout<<currentKNN<<endl;
     string newParameters;
-    cin.ignore();
+    //cin.ignore();
     getline(cin,newParameters);
     //cin.ignore(numeric_limits<std::streamsize>::max(), '\n');
     if (newParameters.empty()){

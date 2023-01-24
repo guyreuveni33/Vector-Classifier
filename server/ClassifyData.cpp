@@ -30,7 +30,6 @@ void ClassifyData::execute() {
         // Iterate over all input vectors in masterVectorTest
         int i, j;
         for (i = 0; i < masterVectorTest->size(); i++) {
-            cout << i << endl;
             vector<double> inputVector = (*masterVectorTest)[i].getVector();
             // Iterate over all vectors in masterVectorTrain
             for (j = 0; j < masterVectorTrain->size(); j++) {

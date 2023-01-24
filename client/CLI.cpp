@@ -24,13 +24,16 @@ void CLI::start() {
     int userChoice;
     string menu;
     do {
+        option.clear();
         menu = this->dio->read();
         cout << menu << endl;
-        cin >> option;
+        getline(cin, option);
         try {
+            if(option.empty())
+                throw exception();
             userChoice = stoi(option);
-        }catch(exception &e){
-            cout<<"invalid input"<<endl;
+        } catch (exception &e) {
+            cout << "invalid input" << endl;
             string invalidChoice = "invalid choice";
             this->dio->write(invalidChoice);
             continue;
@@ -57,11 +60,11 @@ void CLI::start() {
                 downloadResults->execute();
                 break;
             case 8:
-                cout << "Goodbye!"<< endl;
+                cout << "Goodbye!" << endl;
                 this->dio->write(to_string(userChoice));
                 break;
             default:
-                cout<<"invalid input"<<endl;
+                cout << "invalid input" << endl;
                 string invalidChoice = "invalid choice";
                 this->dio->write(invalidChoice);
                 break;

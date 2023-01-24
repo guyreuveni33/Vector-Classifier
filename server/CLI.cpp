@@ -1,6 +1,5 @@
 #include "CLI.h"
 
-
 CLI::CLI(DefaultIO *dio) {
     vector<VectorBase> *v1 = new vector<VectorBase>();
     vector<VectorBase> *v2 = new vector<VectorBase>();

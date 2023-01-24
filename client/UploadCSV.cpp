@@ -9,7 +9,7 @@ void UploadCSV::execute() {
     string startMsg = this->dio->read();
     cout << startMsg << endl;
     string fileNameTrain;
-    cin>>fileNameTrain;
+    getline(cin , fileNameTrain);
     string textLine;
     // Opening the file and reading it.
     fstream file(fileNameTrain, ios::in);
@@ -32,7 +32,7 @@ void UploadCSV::execute() {
     string SecondStartMsg = this->dio->read();
     cout << SecondStartMsg << endl;
     string fileNameTest;
-    cin>>fileNameTest;
+    getline(cin, fileNameTest);
     // Opening the file and reading it.
     fstream file2(fileNameTest, ios::in);
     // This is reading the csv file and storing the data into a vector.

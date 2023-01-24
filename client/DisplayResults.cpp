@@ -21,7 +21,8 @@ void DisplayResults::execute() {
         string done = this->dio->read();
         cout << done << endl;
         string newParameters;
-        cin.ignore();
         getline(cin,newParameters);
+        if(newParameters.empty())
+            return;
     }
 }
