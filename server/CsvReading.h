@@ -32,7 +32,7 @@ int kCheck(int k, vector<VectorBase> &masterVector);
  *
  * @param masterVector The vector that contains all the vectors that are being sorted.
  */
-void sortVector(vector<VectorBase> &masterVector);
+void sortVector(vector<VectorBase> &masterVector, int k);
 
 /**
  * Iterate over the last k elements of the master vector, count the number of occurrences of each string, and return the

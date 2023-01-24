@@ -4,6 +4,7 @@
 #include "CsvReading.h"
 #include "Minkowski.h"
 #include "ClassifyData.h"
+#include <iostream>
 
 ClassifyData::ClassifyData(DefaultIO *dio, vector<VectorBase> *masterVectorTrain, vector<VectorBase> *masterVectorTest,
                            SetAlgo *algo) {
@@ -29,6 +30,7 @@ void ClassifyData::execute() {
         // Iterate over all input vectors in masterVectorTest
         int i, j;
         for (i = 0; i < masterVectorTest->size(); i++) {
+            cout << i << endl;
             vector<double> inputVector = (*masterVectorTest)[i].getVector();
             // Iterate over all vectors in masterVectorTrain
             for (j = 0; j < masterVectorTrain->size(); j++) {
@@ -38,7 +40,7 @@ void ClassifyData::execute() {
                 (*masterVectorTrain)[j].setAlgoDistance(distance);
             }
             // Sort masterVectorTrain by distance
-            sortVector(*masterVectorTrain);
+            sortVector(*masterVectorTrain, this->algo->getK());
             // Find the most common class among the k closest vectors
             string most_common = highestOccurrence(this->algo->getK(), *masterVectorTrain);
             // Set the class for the current input vector in masterVectorTest

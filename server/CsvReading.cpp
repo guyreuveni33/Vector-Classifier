@@ -41,21 +41,23 @@ int kCheck(int k, vector<VectorBase> &masterVector) {
     return 1;
 }
 
-void sortVector(vector<VectorBase> &masterVector) {
-    for (int i = 0; i < masterVector.size(); i++) {
-        for (int j = 0; j < masterVector.size(); j++) {
-            // This is sorting the vector by distance.
-            if (masterVector.at(i).getDistance() > masterVector.at(j).getDistance()) {
-                swap(masterVector.at(i), masterVector.at(j));
+void sortVector(vector<VectorBase> &masterVector, int k) {
+    for (int i = 0; i < k; i++) {
+        int minIndex = i;
+        for (int j = i + 1; j < masterVector.size(); j++) {
+            if (masterVector.at(j).getDistance() < masterVector.at(minIndex).getDistance()) {
+                minIndex = j;
             }
         }
+        swap(masterVector.at(i), masterVector.at(minIndex));
     }
 }
 
+
 string highestOccurrence(int k, vector<VectorBase> &masterVector) {
     vector<string> stringVector;
-    for (int i = masterVector.size(); i > masterVector.size() - k; i--) {
-        stringVector.push_back(masterVector.at(i - 1).getStr());
+    for (int i = 0; i < k; i++) {
+        stringVector.push_back(masterVector.at(i).getStr());
     }
     // Create a map to count the number of occurrences of each string
     map<string, int> counts;
@@ -132,7 +134,7 @@ string csvIsValid(int k, string fileName, string distanceAlgo, vector<VectorBase
             string retStr = "invalid input";
             return retStr;
         }
-        sortVector(masterVector);
+        sortVector(masterVector, k);
         string classification = highestOccurrence(k, masterVector);
         return classification;
     } else {
