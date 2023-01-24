@@ -26,15 +26,7 @@ void CLI::start() {
     do {
         menu = this->dio->read();
         cout << menu << endl;
-        //cin.ignore('1', '\n');
-        //getline(cin,option);
         cin >> option;
-//        if (option.empty()){
-//            cout<<"invalid input"<<endl;
-//            string invalidChoice = "invalid choice";
-//            this->dio->write(invalidChoice);
-//            continue;
-//        }
         try {
             userChoice = stoi(option);
         }catch(exception &e){
