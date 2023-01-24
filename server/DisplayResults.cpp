@@ -1,7 +1,3 @@
-//
-// Created by oem on 1/16/23.
-//
-
 #include "DisplayResults.h"
 #include "SetAlgo.h"
 #include <string>

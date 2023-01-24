@@ -1,7 +1,3 @@
-//
-// Created by niv swisa on 19/01/2023.
-//
-
 #ifndef EX4_AP_DISPLAYRESULTS_H
 #define EX4_AP_DISPLAYRESULTS_H
 

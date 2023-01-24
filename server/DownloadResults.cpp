@@ -1,20 +1,6 @@
-//
-// Created by oem on 1/16/23.
-//
-
 #include "DownloadResults.h"
-
-//
-// Created by oem on 1/16/23.
-//
-
-
-#include "DisplayResults.h"
 #include "SetAlgo.h"
-#include "UploadCSV.h"
-#include <iostream>
 #include <string>
-#include <sstream>
 #include <map>
 #include "CsvReading.h"
 #include "Minkowski.h"

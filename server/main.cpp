@@ -1,4 +1,3 @@
-
 #include "VectorCreation.h"
 #include "VectorBase.h"
 #include "CsvReading.h"
@@ -11,7 +10,6 @@
 #include <sstream>
 #include "DefaultIO.h"
 #include "SocketIO.h"
-#include "Command.h"
 #include <vector>
 #include <thread>
 #include "CLI.h"

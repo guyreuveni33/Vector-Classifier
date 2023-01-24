@@ -1,7 +1,3 @@
-//
-// Created by oem on 1/19/23.
-//
-
 #ifndef EX4_AP_CLASSIFYDATA_H
 #define EX4_AP_CLASSIFYDATA_H
 
@@ -10,6 +6,7 @@
 #include <fstream>
 #include <string>
 #include "Command.h"
+
 class ClassifyData : public Command {
 public:
     void execute() override;

@@ -11,11 +11,6 @@
 #include "DefaultIO.h"
 #include "SocketIO.h"
 #include "Command.h"
-#include "UploadCSV.h"
-#include "SetAlgo.h"
-#include "ClassifyData.h"
-#include "DisplayResults.h"
-#include "DownloadResults.h"
 #include "CLI.h"
 
 using namespace std;

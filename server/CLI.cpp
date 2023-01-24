@@ -1,7 +1,3 @@
-//
-// Created by oem on 1/22/23.
-//
-
 #include "CLI.h"
 
 
@@ -12,8 +8,6 @@ CLI::CLI(DefaultIO *dio) {
     this->dio = dio;
     Command *uploadCSV = new UploadCSV(dio, v1,v2);
     Command *setAlgo = new SetAlgo(dio, v1, v2);
-    //int k_value = ((SetAlgo*)(setAlgo))->getK();
-    //string distanceMetric = ((SetAlgo*)(setAlgo))->getDistanceMetric();
     Command *classifyData = new ClassifyData(dio, v1, v2, (SetAlgo*)setAlgo);
     Command *displayResults = new DisplayResults(dio, v1, v2);
     Command *downloadResults = new DownloadResults(dio, v1, v2);

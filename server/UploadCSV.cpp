@@ -20,6 +20,10 @@ void UploadCSV::execute() {
     if (line == "invalid input") {
         return;
     }
+    if(!masterVectorTrain->empty() || !masterVectorTest->empty()){
+        masterVectorTrain->clear();
+        masterVectorTest->clear();
+    }
     while (line != "EOF") {
         istringstream lineStream(line);
         string s;

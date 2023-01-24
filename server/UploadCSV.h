@@ -5,7 +5,6 @@
 #include <fstream>
 #include <string>
 #include "Command.h"
-
 #include "CsvReading.h"
 #include "Minkowski.h"
 

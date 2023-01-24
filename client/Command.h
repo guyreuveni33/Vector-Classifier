@@ -1,6 +1,3 @@
-// Created by oem on 1/17/23.
-//
-#define COMMAND_H
 #ifndef EX4_AP_COMMAND_H
 #define EX4_AP_COMMAND_H
 

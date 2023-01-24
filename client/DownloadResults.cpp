@@ -1,12 +1,5 @@
-//
-// Created by oem on 1/22/23.
-//
-
 #include "DownloadResults.h"
 #include <thread>
-#include <unistd.h>
-
-
 
 DownloadResults::DownloadResults(DefaultIO *dio) {
     this->dio = dio;

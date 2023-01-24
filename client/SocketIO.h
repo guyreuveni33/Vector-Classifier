@@ -1,7 +1,3 @@
-//
-// Created by niv swisa on 17/01/2023.
-//
-
 #ifndef EX4_AP_SOCKETIO_H
 #define EX4_AP_SOCKETIO_H
 
