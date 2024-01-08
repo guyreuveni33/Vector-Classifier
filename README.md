@@ -1,4 +1,4 @@
-# ex4_AP
+# Vector Classifier
 
 Advanced Programming 1 by Niv Swisa & Guy Reuveni -
 
